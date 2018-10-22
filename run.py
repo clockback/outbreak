@@ -24,6 +24,7 @@ class Character():
         self.frame = -1 # -1 means the character isn't moving
         self.sprite = 0
         self.distract_time = 0
+        self.caught = False
         if self.id in ('Main', 'Infected'):
             self.target = None
         else:
@@ -73,9 +74,9 @@ class Character():
         """
         if self.id == 'Infected':
             for char in filter(lambda x: x.id == 'Infected', characters):
-                if abs(char.x - self.x) < 10 and abs(char.y - self.y) < 10:
-                    if abs(char.x - self.x + 1) < abs(char.x - self.x) < 10:
-                        if self.distance(MAIN) > 10 or self.target is not None:
+                if abs(char.x - self.x) < 2 and abs(char.y - self.y) < 2:
+                    if abs(char.x - self.x + 1) < abs(char.x - self.x) < 2:
+                        if self.distance(MAIN) > 5 and self.target is None:
                             return
         if self.x - 1 > 0:
             self.x -= 1
@@ -87,9 +88,9 @@ class Character():
         """
         if self.id == 'Infected':
             for char in filter(lambda x: x.id == 'Infected', characters):
-                if abs(char.x - self.x) < 10 and abs(char.y - self.y) < 10:
-                    if abs(char.x - self.x - 1) < abs(char.x - self.x) < 10:
-                        if self.distance(MAIN) > 10 or self.target is not None:
+                if abs(char.x - self.x) < 2 and abs(char.y - self.y) < 2:
+                    if abs(char.x - self.x - 1) < abs(char.x - self.x) < 2:
+                        if self.distance(MAIN) > 5 and self.target is None:
                             return
         if self.x + 1 < 123:
             self.x += 1
@@ -101,9 +102,9 @@ class Character():
         """
         if self.id == 'Infected':
             for char in filter(lambda x: x.id == 'Infected', characters):
-                if abs(char.x - self.x) < 10 and abs(char.y - self.y) < 10:
-                    if abs(char.y - self.y + 1) < abs(char.y - self.y) < 10:
-                        if self.distance(MAIN) > 10 or self.target is not None:
+                if abs(char.x - self.x) < 2 and abs(char.y - self.y) < 2:
+                    if abs(char.y - self.y + 1) < abs(char.y - self.y) < 2:
+                        if self.distance(MAIN) > 5 and self.target is None:
                             return
         if self.y - 1 > 0:
             self.y -= 1
@@ -115,9 +116,9 @@ class Character():
         """
         if self.id == 'Infected':
             for char in filter(lambda x: x.id == 'Infected', characters):
-                if abs(char.x - self.x) < 10 and abs(char.y - self.y) < 10:
-                    if abs(char.y - self.y - 1) < abs(char.y - self.y) < 10:
-                        if self.distance(MAIN) > 10 or self.target is not None:
+                if abs(char.x - self.x) < 2 and abs(char.y - self.y) < 2:
+                    if abs(char.y - self.y - 1) < abs(char.y - self.y) < 2:
+                        if self.distance(MAIN) > 5 and self.target is None:
                             return
         if self.y + 1 < 98:
             self.y += 1
@@ -159,7 +160,10 @@ class Character():
             elif self.y < self.target[1]:
                 self.move_down()
             if all(self.pos == self.target):
-                self.new_target()
+                if self.id != 'Infected':
+                    self.new_target()
+                else:
+                    self.target = None
         
         # Infected characters chase the main character
         elif self.id == 'Infected' and self.frame in (-1, 1):
@@ -176,12 +180,13 @@ class Character():
         '''
         Occasionally, the infected characters are distracted.
         '''
-        if self.id == 'Infected' and self.target is not None:
+        if self.id == 'Infected' and self.target is None:
             self.distract_time += 1
-            if random.randint(1, 150000) < self.distract_time - 20:
-                print("DISTRACTED")
+            if random.randint(1, 6000) < self.distract_time - 20:
                 self.distract_time = 0
                 self.new_target()
+                if len(characters) < 100 and random.randint(1, 10) == 1:
+                    eggs.append(Egg(self.pos))
     
     def mainloop(self):
         '''
@@ -212,6 +217,10 @@ class Character():
                 if abs(char.x - self.x) < 5 and abs(char.y - self.y) < 5:
                     char.colour = (0, 255, 0)
                     char.id = 'Infected'
+            
+            if abs(MAIN.x - self.x) < 5 and abs(MAIN.y - self.y) < 5:
+                MAIN.colour = (0, 100, 0)
+                MAIN.caught = True
 
 
 class MainCharacter(Character):
@@ -222,12 +231,42 @@ class MainCharacter(Character):
         super().__init__(char_id='Main', pos=pos, colour=(255, 255, 0))
 
 
+class Egg():
+    '''
+    An egg hatches infected characters.
+    '''
+    def __init__(self, pos):
+        '''
+        Stores the egg position.
+        '''
+        self.pos = np.array(pos)
+        self.age = 0
+    
+    def mainloop(self):
+        '''
+        Ages the egg appropriately.
+        '''
+        self.age += 1
+        if self.age > 100:
+            self.hatch()
+    
+    def hatch(self):
+        '''
+        Hatches the egg.
+        '''
+        eggs.remove(self)
+        characters.append(Character(char_id='Infected', pos=self.pos,
+                                    colour=(0, 255, 0)))
+
 def register_objects():
     '''
     Runs the mainloop.
     '''
     for character in characters:
         character.mainloop()
+    
+    for egg in eggs:
+        egg.mainloop()
 
 def display():
     '''
@@ -241,6 +280,10 @@ def display():
     pygame.draw.line(PSEUDO_SCREEN, (100, 0, 0), (0, 99), (125, 99))
     pygame.draw.line(PSEUDO_SCREEN, (100, 0, 0), (0, 1), (0, 98))
     pygame.draw.line(PSEUDO_SCREEN, (100, 0, 0), (124, 1), (124, 98))
+    
+    # Displays the eggs
+    for egg in eggs:
+        pygame.draw.rect(PSEUDO_SCREEN, (0, 0, 255), (egg.pos, np.array((2, 2))))
     
     # Displays the characters on the screen
     for char in characters:
@@ -276,6 +319,7 @@ characters = [
     Character('Dylan', (80, 90), (255, 0, 0)),
     Character('Susanna', (90, 90), (255, 0, 0)),
     ]
+eggs = []
 
 RUNNING = True
 while RUNNING:
@@ -286,14 +330,15 @@ while RUNNING:
             break
     
     pressed = pygame.key.get_pressed()
-    if pressed[pygame.K_LEFT]:
-        MAIN.move_left()
-    elif pressed[pygame.K_RIGHT]:
-        MAIN.move_right()
-    if pressed[pygame.K_UP]:
-        MAIN.move_up()
-    elif pressed[pygame.K_DOWN]:
-        MAIN.move_down()
+    if not MAIN.caught:
+        if pressed[pygame.K_LEFT]:
+            MAIN.move_left()
+        elif pressed[pygame.K_RIGHT]:
+            MAIN.move_right()
+        if pressed[pygame.K_UP]:
+            MAIN.move_up()
+        elif pressed[pygame.K_DOWN]:
+            MAIN.move_down()
     
     if not any((
         pressed[pygame.K_LEFT],
