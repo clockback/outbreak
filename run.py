@@ -8,7 +8,8 @@ import letters
 
 RESOLUTION = np.array((125, 100))
 PSEUDO_SCREEN = pygame.Surface(RESOLUTION)
-SCREEN = pygame.display.set_mode(RESOLUTION * 8)
+SCREEN = pygame.display.set_mode(RESOLUTION * 8, pygame.FULLSCREEN)
+pygame.mouse.set_visible(False)
 
 pygame.display.set_caption('Outbreak')
 
@@ -262,7 +263,7 @@ class Character():
             if randint(1, 6000) < self.distract_time - 20:
                 self.distract_time = 0
                 self.new_target()
-                if len(characters) < 100 and randint(1, 10) == 1:
+                if len(characters) < 100 and randint(1, 10) != 1:
                     eggs.append(Egg(self.pos))
     
     def mainloop(self):
@@ -348,8 +349,10 @@ class Shockwave():
         '''
         self.radius += 2
         for char in characters:
-                if (char.id == 'Infected' and char.distance(self) < self.radius
-                    and len(characters) > 2):
+                if (char.id == 'Infected' and
+                    char.distance(self) < self.radius and
+                    len(list(filter(lambda x: x.id == 'Infected',
+                                    characters))) > 1):
                     char.id = 'Disinfected'
                     char.new_target()
                     char.colour = colours['red']
@@ -519,7 +522,7 @@ def new_game():
     characters.clear()
     characters.append(MAIN)
     characters.append(Character('Infected', (10, 10)))
-    for repeat in range(11):
+    for __ in range(0):
         x = randint(1, 124)
         y = randint(1, 99)
         characters.append(Character('Disinfected', (x, y)))
@@ -701,11 +704,12 @@ new_game()
 
 high_scores = HighScores()
 
-while MAIN in characters:
-    if SS.on_start_screen:
-        SS.start_screen()
-    else:
-        mainloop()
-
-pygame.display.quit()
-pygame.quit()
+try:
+    while MAIN in characters:
+        if SS.on_start_screen:
+            SS.start_screen()
+        else:
+            mainloop()
+finally:
+    pygame.display.quit()
+    pygame.quit()
