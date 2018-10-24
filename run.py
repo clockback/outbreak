@@ -263,7 +263,7 @@ class Character():
             if randint(1, 6000) < self.distract_time - 20:
                 self.distract_time = 0
                 self.new_target()
-                if len(characters) < 100 and randint(1, 10) != 1:
+                if len(characters) < 100 and randint(1, 10) == 1:
                     eggs.append(Egg(self.pos))
     
     def mainloop(self):
@@ -522,7 +522,7 @@ def new_game():
     characters.clear()
     characters.append(MAIN)
     characters.append(Character('Infected', (10, 10)))
-    for __ in range(0):
+    for __ in range(11):
         x = randint(1, 124)
         y = randint(1, 99)
         characters.append(Character('Disinfected', (x, y)))
