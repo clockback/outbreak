@@ -300,7 +300,10 @@ class Character():
             
             if (abs(MAIN.x - self.x) < infect_radius and
                 abs(MAIN.y - self.y) < infect_radius and
-                not MAIN.caught) :
+                not MAIN.caught):
+                for shockwave in shockwaves:
+                    if sum(MAIN.pos - shockwave.pos) < shockwave.radius:
+                        return
                 MAIN.colour = colours['green']
                 MAIN.caught = True
                 time_since_caught = 0
