@@ -6,7 +6,13 @@ import pygame
 
 import letters
 
-RESOLUTION = np.array((125, 100))
+DIM_X, DIM_Y = 155, 120
+BOUNDARY_X, BOUNDARY_Y = 125, 100
+X_GAP = (DIM_X - BOUNDARY_X) / 2
+Y_GAP = (DIM_Y - BOUNDARY_Y) / 2
+DISP = np.array((X_GAP, Y_GAP)).astype(int)
+
+RESOLUTION = np.array((DIM_X, DIM_Y))
 PSEUDO_SCREEN = pygame.Surface(RESOLUTION)
 SCREEN = pygame.display.set_mode(RESOLUTION * 8, pygame.FULLSCREEN)
 pygame.mouse.set_visible(False)
@@ -107,8 +113,8 @@ class Character():
             self.target = None
         else:
             self.target = np.array((
-                randint(1, 122),
-                randint(1, 97)
+                randint(1, BOUNDARY_X - 3),
+                randint(1, BOUNDARY_Y - 3)
                 ))
     
     @property
@@ -170,7 +176,7 @@ class Character():
                     if abs(char.x - self.x - 1) < abs(char.x - self.x) < 2:
                         if self.distance(MAIN) > 5 and self.target is None:
                             return
-        if self.x + 1 < 123:
+        if self.x + 1 < BOUNDARY_X - 2:
             self.x += 1
             self.set_animate()
     
@@ -198,7 +204,7 @@ class Character():
                     if abs(char.y - self.y - 1) < abs(char.y - self.y) < 2:
                         if self.distance(MAIN) > 5 and self.target is None:
                             return
-        if self.y + 1 < 98:
+        if self.y + 1 < BOUNDARY_Y - 2:
             self.y += 1
             self.set_animate()
     
@@ -219,8 +225,8 @@ class Character():
         Create a new target.
         """
         self.target = np.array((
-            randint(1, 122),
-            randint(1, 97)
+            randint(1, BOUNDARY_X - 3),
+            randint(1, BOUNDARY_Y - 3)
             ))
     
     def move_ai(self):
@@ -333,19 +339,12 @@ class Shockwave():
         '''
         Draws the shockwave.
         '''
-        pygame.draw.line(PSEUDO_SCREEN, colours['magenta'],
-            self.pos + np.array((self.radius, 0)),
-            self.pos + np.array((0, self.radius)))
-        pygame.draw.line(PSEUDO_SCREEN, colours['magenta'],
-            self.pos + np.array((0, self.radius)),
-            self.pos + np.array((-self.radius, 0)))
-        pygame.draw.line(PSEUDO_SCREEN, colours['magenta'],
-            self.pos + np.array((-self.radius, 0)),
-            self.pos + np.array((0, -self.radius)))
-        pygame.draw.line(PSEUDO_SCREEN, colours['magenta'],
-            self.pos + np.array((0, -self.radius)),
-            self.pos + np.array((self.radius, 0)))
-
+        pygame.draw.lines(PSEUDO_SCREEN, colours['magenta'], True,
+            (self.pos + DISP + np.array((self.radius, 0)),
+             self.pos + DISP + np.array((0, self.radius)),
+             self.pos + DISP + np.array((-self.radius, 0)),
+             self.pos + DISP + np.array((0, -self.radius))))
+    
     def mainloop(self):
         '''
         Runs the shockwave mainloop.
@@ -359,6 +358,7 @@ class Shockwave():
                     char.id = 'Disinfected'
                     char.new_target()
                     char.colour = colours['red']
+        
         if self.radius > 20:
             shockwaves.remove(self)
 
@@ -434,26 +434,41 @@ def display_objects():
     # Refreshes the screen
     PSEUDO_SCREEN.fill(colours['black'])
     
+    # Draw a border
+    pygame.draw.lines(PSEUDO_SCREEN, colours['white'], True,
+                      (DISP + (0, 0),
+                       DISP + (BOUNDARY_X - 1, 0),
+                       DISP + (BOUNDARY_X - 1, BOUNDARY_Y - 1),
+                       DISP + (0, BOUNDARY_Y - 1)))
+    
     # Displays the eggs
     for egg in eggs:
         size = 2 if egg.age > 100 else 1
         pygame.draw.rect(PSEUDO_SCREEN, egg.colour,
-                         (egg.pos, size * np.array((1, 1))))
+                         (DISP + egg.pos, size * np.array((1, 1))))
     
     # Displays the characters on the screen
     for char in characters:
         pygame.draw.rect(PSEUDO_SCREEN, char.colour,
-                         (char.pos, np.array((2, 2))))
+                         (DISP + char.pos, np.array((2, 2))))
         if char.sprite == 1:
-            PSEUDO_SCREEN.set_at(char.pos + np.array((0, -1)), char.colour)
-            PSEUDO_SCREEN.set_at(char.pos + np.array((-1, 0)), char.colour)
-            PSEUDO_SCREEN.set_at(char.pos + np.array((1, 2)), char.colour)
-            PSEUDO_SCREEN.set_at(char.pos + np.array((2, 1)), char.colour)
+            PSEUDO_SCREEN.set_at(DISP + char.pos + np.array((0, -1)),
+                                 char.colour)
+            PSEUDO_SCREEN.set_at(DISP + char.pos + np.array((-1, 0)),
+                                 char.colour)
+            PSEUDO_SCREEN.set_at(DISP + char.pos + np.array((1, 2)),
+                                 char.colour)
+            PSEUDO_SCREEN.set_at(DISP + char.pos + np.array((2, 1)),
+                                 char.colour)
         elif char.sprite == 3:
-            PSEUDO_SCREEN.set_at(char.pos + np.array((1, -1)), char.colour)
-            PSEUDO_SCREEN.set_at(char.pos + np.array((-1, 1)), char.colour)
-            PSEUDO_SCREEN.set_at(char.pos + np.array((0, 2)), char.colour)
-            PSEUDO_SCREEN.set_at(char.pos + np.array((2, 0)), char.colour)
+            PSEUDO_SCREEN.set_at(DISP + char.pos + np.array((1, -1)),
+                                 char.colour)
+            PSEUDO_SCREEN.set_at(DISP + char.pos + np.array((-1, 1)),
+                                 char.colour)
+            PSEUDO_SCREEN.set_at(DISP + char.pos + np.array((0, 2)),
+                                 char.colour)
+            PSEUDO_SCREEN.set_at(DISP + char.pos + np.array((2, 0)),
+                                 char.colour)
     
     for shockwave in shockwaves:
         shockwave.draw()
@@ -468,12 +483,12 @@ def write_left_align(text, y, user_write=False):
     '''
     x = 1
     for letter in text:
-        letters.char_to_func[letter](PSEUDO_SCREEN, np.array((x, y)))
+        letters.char_to_func[letter](PSEUDO_SCREEN, DISP + np.array((x, y)))
         x += 10
     
     if x < 41 and user_write:
         pygame.draw.line(PSEUDO_SCREEN, colours['green'],
-            np.array((x, y + 8)), np.array((x + 8, y + 8)))
+            DISP + np.array((x, y + 8)), DISP + np.array((x + 8, y + 8)))
 
 def write_right_align(text, y):
     '''
@@ -481,7 +496,7 @@ def write_right_align(text, y):
     '''
     x = 115
     for digit in str(text)[::-1]:
-        letters.char_to_func[digit](PSEUDO_SCREEN, np.array((x, y)))
+        letters.char_to_func[digit](PSEUDO_SCREEN, DISP + np.array((x, y)))
         x -= 10
 
 def display_highscores():
@@ -526,8 +541,8 @@ def new_game():
     characters.append(MAIN)
     characters.append(Character('Infected', (10, 10)))
     for __ in range(11):
-        x = randint(1, 124)
-        y = randint(1, 99)
+        x = randint(1, BOUNDARY_X - 1)
+        y = randint(1, BOUNDARY_Y - 1)
         characters.append(Character('Disinfected', (x, y)))
     eggs.clear()
     shockwaves.clear()
@@ -684,10 +699,10 @@ class StartScreen():
         
         self.flash_i += 1
         
-        PSEUDO_SCREEN.blit(self.start_img, (0, 0))
+        PSEUDO_SCREEN.blit(self.start_img, DISP)
                 
         if self.flash_i > 25:
-            PSEUDO_SCREEN.blit(self.flash_text_img, (33, 70))
+            PSEUDO_SCREEN.blit(self.flash_text_img, DISP + np.array((33, 70)))
             if self.flash_i > 50:
                 self.flash_i = 0
         
