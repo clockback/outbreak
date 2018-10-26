@@ -522,6 +522,459 @@ def draw_0(surface, pos):
                      pos + np.array((2, 7)), pos + np.array((6, 1)))
     surface.set_at(pos + np.array((2, 7)), green)
 
+def draw_a_mini(surface, pos):
+    '''
+    Draws a small letter 'A'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (0, 4),
+                       pos + (0, 2),
+                       pos + (2, 2),
+                       pos + (1, 1),
+                       pos + (2, 0),
+                       pos + (3, 1),
+                       pos + (3, 2),
+                       pos + (4, 2),
+                       pos + (4, 4)))
+
+def draw_b_mini(surface, pos):
+    '''
+    Draws a small letter 'B'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (0, 2),
+                       pos + (0, 4),
+                       pos + (3, 4),
+                       pos + (4, 3),
+                       pos + (3, 2),
+                       pos + (1, 2),
+                       pos + (0, 1),
+                       pos + (0, 0),
+                       pos + (3, 0),
+                       pos + (4, 1)))
+
+def draw_c_mini(surface, pos):
+    '''
+    Draws a small letter 'C'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (4, 0),
+                       pos + (1, 0),
+                       pos + (0, 1),
+                       pos + (0, 3),
+                       pos + (1, 4),
+                       pos + (4, 4)))
+
+def draw_d_mini(surface, pos):
+    '''
+    Draws a small letter 'D'
+    '''
+    pygame.draw.lines(surface, green, True,
+                      (pos + (0, 0),
+                       pos + (3, 0),
+                       pos + (4, 1),
+                       pos + (4, 3),
+                       pos + (3, 4),
+                       pos + (0, 4)))
+
+def draw_e_mini(surface, pos):
+    '''
+    Draws a small letter 'E'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (4, 0),
+                       pos + (0, 0),
+                       pos + (0, 4),
+                       pos + (4, 4)))
+    pygame.draw.line(surface, green, pos + (1, 2), pos + (4, 2))
+
+def draw_f_mini(surface, pos):
+    '''
+    Draws a small letter 'F'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (4, 0),
+                       pos + (0, 0),
+                       pos + (0, 4)))
+    pygame.draw.line(surface, green, pos + (1, 2), pos + (3, 2))
+
+def draw_g_mini(surface, pos):
+    '''
+    Draws a small letter 'G'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (4, 0),
+                       pos + (1, 0),
+                       pos + (0, 1),
+                       pos + (0, 3),
+                       pos + (1, 4),
+                       pos + (3, 4),
+                       pos + (4, 3),
+                       pos + (4, 2),
+                       pos + (3, 2)))
+
+def draw_h_mini(surface, pos):
+    '''
+    Draws a small letter 'H'
+    '''
+    pygame.draw.line(surface, green, pos + (0, 0), pos + (0, 4))
+    pygame.draw.line(surface, green, pos + (4, 0), pos + (4, 4))
+    pygame.draw.line(surface, green, pos + (1, 2), pos + (4, 2))
+
+def draw_i_mini(surface, pos):
+    '''
+    Draws a small letter 'I'
+    '''
+    pygame.draw.line(surface, green, pos + (0, 0), pos + (4, 0))
+    pygame.draw.line(surface, green, pos + (0, 4), pos + (4, 4))
+    pygame.draw.line(surface, green, pos + (2, 1), pos + (2, 4))
+
+def draw_j_mini(surface, pos):
+    '''
+    Draws a small letter 'J'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (0, 0),
+                       pos + (4, 0),
+                       pos + (3, 1),
+                       pos + (3, 3),
+                       pos + (2, 4),
+                       pos + (1, 4),
+                       pos + (0, 3)))
+
+def draw_k_mini(surface, pos):
+    '''
+    Draws a small letter 'K'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (0, 0),
+                       pos + (0, 1),
+                       pos + (1, 2),
+                       pos + (0, 2),
+                       pos + (0, 4)))
+    pygame.draw.lines(surface, green, False,
+                      (pos + (4, 0),
+                       pos + (2, 2),
+                       pos + (4, 4)))
+
+def draw_l_mini(surface, pos):
+    '''
+    Draws a small letter 'L'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (0, 0),
+                       pos + (0, 4),
+                       pos + (4, 4)))
+
+def draw_m_mini(surface, pos):
+    '''
+    Draws a small letter 'M'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (0, 4),
+                       pos + (0, 1),
+                       pos + (1, 0),
+                       pos + (2, 1),
+                       pos + (3, 0),
+                       pos + (4, 1),
+                       pos + (4, 4)))
+    pygame.draw.line(surface, green, pos + (2, 2), pos + (2, 4))
+
+def draw_n_mini(surface, pos):
+    '''
+    Draws a small letter 'N'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (0, 4),
+                       pos + (0, 0),
+                       pos + (1, 0),
+                       pos + (1, 1),
+                       pos + (3, 3),
+                       pos + (3, 4),
+                       pos + (4, 4),
+                       pos + (4, 0)))
+
+def draw_o_mini(surface, pos):
+    '''
+    Draws a small letter 'O'
+    '''
+    pygame.draw.lines(surface, green, True,
+                      (pos + (1, 0),
+                       pos + (0, 1),
+                       pos + (0, 3),
+                       pos + (1, 4),
+                       pos + (3, 4),
+                       pos + (4, 3),
+                       pos + (4, 1),
+                       pos + (3, 0)))
+
+def draw_p_mini(surface, pos):
+    '''
+    Draws a small letter 'P'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (0, 4),
+                       pos + (0, 0),
+                       pos + (3, 0),
+                       pos + (4, 1),
+                       pos + (3, 2),
+                       pos + (1, 2)))
+
+def draw_q_mini(surface, pos):
+    '''
+    Draws a small letter 'Q'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (2, 2),
+                       pos + (4, 4),
+                       pos + (1, 4),
+                       pos + (0, 3),
+                       pos + (0, 1),
+                       pos + (1, 0),
+                       pos + (3, 0),
+                       pos + (4, 1),
+                       pos + (4, 3)))
+
+def draw_r_mini(surface, pos):
+    '''
+    Draws a small letter 'R'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (0, 4),
+                       pos + (0, 0),
+                       pos + (3, 0),
+                       pos + (4, 1),
+                       pos + (3, 2),
+                       pos + (3, 3),
+                       pos + (4, 4)))
+    pygame.draw.line(surface, green, pos + (1, 2), pos + (2, 2))
+
+def draw_s_mini(surface, pos):
+    '''
+    Draws a small letter 'S'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (4, 0),
+                       pos + (1, 0),
+                       pos + (0, 1),
+                       pos + (1, 2),
+                       pos + (3, 2),
+                       pos + (4, 3),
+                       pos + (3, 4),
+                       pos + (0, 4)))
+
+def draw_t_mini(surface, pos):
+    '''
+    Draws a small letter 'T'
+    '''
+    pygame.draw.line(surface, green, pos + (0, 0), pos + (4, 0))
+    pygame.draw.line(surface, green, pos + (2, 1), pos + (2, 4))
+
+def draw_u_mini(surface, pos):
+    '''
+    Draws a small letter 'U'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (0, 0),
+                       pos + (0, 3),
+                       pos + (1, 4),
+                       pos + (3, 4),
+                       pos + (4, 3),
+                       pos + (4, 0)))
+
+def draw_v_mini(surface, pos):
+    '''
+    Draws a small letter 'V'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (0, 0),
+                       pos + (0, 1),
+                       pos + (1, 2),
+                       pos + (1, 3),
+                       pos + (2, 4),
+                       pos + (3, 3),
+                       pos + (3, 2),
+                       pos + (4, 1),
+                       pos + (4, 0)))
+
+def draw_w_mini(surface, pos):
+    '''
+    Draws a small letter 'W'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (0, 0),
+                       pos + (0, 3),
+                       pos + (1, 4),
+                       pos + (2, 3),
+                       pos + (2, 2)))
+    pygame.draw.lines(surface, green, False,
+                      (pos + (3, 4),
+                       pos + (4, 3),
+                       pos + (4, 0)))
+
+def draw_x_mini(surface, pos):
+    '''
+    Draws a small letter 'X'
+    '''
+    pygame.draw.line(surface, green, pos + (0, 0), pos + (4, 4))
+    pygame.draw.line(surface, green, pos + (4, 0), pos + (3, 1))
+    pygame.draw.line(surface, green, pos + (1, 3), pos + (0, 4))
+
+def draw_y_mini(surface, pos):
+    '''
+    Draws a small letter 'Y'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (0, 0),
+                       pos + (2, 2),
+                       pos + (4, 0)))
+    pygame.draw.line(surface, green, pos + (2, 3), pos + (2, 4))
+
+def draw_z_mini(surface, pos):
+    '''
+    Draws a small letter 'Z'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (0, 0),
+                       pos + (4, 0),
+                       pos + (0, 4),
+                       pos + (4, 4)))
+
+def draw_1_mini(surface, pos):
+    '''
+    Draws a small digit '1'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (0, 1),
+                       pos + (1, 0),
+                       pos + (2, 0),
+                       pos + (2, 3)))
+    pygame.draw.line(surface, green, pos + (0, 4), pos + (4, 4))
+
+def draw_2_mini(surface, pos):
+    '''
+    Draws a small digit '2'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (0, 0),
+                       pos + (3, 0),
+                       pos + (4, 1),
+                       pos + (3, 2),
+                       pos + (1, 2),
+                       pos + (0, 3),
+                       pos + (0, 4),
+                       pos + (4, 4)))
+
+def draw_3_mini(surface, pos):
+    '''
+    Draws a small digit '3'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (0, 0),
+                       pos + (3, 0),
+                       pos + (4, 1),
+                       pos + (3, 2),
+                       pos + (4, 3),
+                       pos + (3, 4),
+                       pos + (0, 4)))
+    pygame.draw.line(surface, green, pos + (0, 2), pos + (2, 2))
+
+def draw_4_mini(surface, pos):
+    '''
+    Draws a small digit '4'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (0, 0),
+                       pos + (0, 2),
+                       pos + (4, 2),
+                       pos + (3, 3),
+                       pos + (3, 4)))
+    pygame.draw.line(surface, green, pos + (3, 0), pos + (3, 1))
+
+def draw_5_mini(surface, pos):
+    '''
+    Draws a small digit '5'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (4, 0),
+                       pos + (0, 0),
+                       pos + (0, 2),
+                       pos + (3, 2),
+                       pos + (4, 3),
+                       pos + (3, 4),
+                       pos + (0, 4)))
+
+def draw_6_mini(surface, pos):
+    '''
+    Draws a small digit '6'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (4, 0),
+                       pos + (1, 0),
+                       pos + (0, 1),
+                       pos + (0, 3),
+                       pos + (1, 4),
+                       pos + (3, 4),
+                       pos + (4, 3),
+                       pos + (3, 2),
+                       pos + (1, 2)))
+
+def draw_7_mini(surface, pos):
+    '''
+    Draws a small digit '7'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (0, 0),
+                       pos + (4, 0),
+                       pos + (4, 1),
+                       pos + (3, 2),
+                       pos + (3, 3),
+                       pos + (2, 4)))
+
+def draw_8_mini(surface, pos):
+    '''
+    Draws a small digit '8'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (3, 0),
+                       pos + (1, 0),
+                       pos + (0, 1),
+                       pos + (1, 2),
+                       pos + (3, 2),
+                       pos + (4, 3),
+                       pos + (3, 4),
+                       pos + (1, 4),
+                       pos + (0, 3)))
+
+def draw_9_mini(surface, pos):
+    '''
+    Draws a small digit '9'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (4, 1),
+                       pos + (3, 0),
+                       pos + (1, 0),
+                       pos + (0, 1),
+                       pos + (1, 2),
+                       pos + (4, 2),
+                       pos + (4, 4)))
+
+def draw_0_mini(surface, pos):
+    '''
+    Draws a small digit '0'
+    '''
+    pygame.draw.lines(surface, green, False,
+                      (pos + (3, 0),
+                       pos + (1, 0),
+                       pos + (0, 1),
+                       pos + (0, 3),
+                       pos + (1, 4),
+                       pos + (3, 4),
+                       pos + (4, 3),
+                       pos + (4, 1),
+                       pos + (3, 1),
+                       pos + (1, 3)))
+
 char_to_func = {
     'A': draw_a,
     'B': draw_b,
@@ -559,6 +1012,45 @@ char_to_func = {
     '8': draw_8,
     '9': draw_9,
     '0': draw_0,
+    }
+
+char_to_mini_func = {
+    'A': draw_a_mini,
+    'B': draw_b_mini,
+    'C': draw_c_mini,
+    'D': draw_d_mini,
+    'E': draw_e_mini,
+    'F': draw_f_mini,
+    'G': draw_g_mini,
+    'H': draw_h_mini,
+    'I': draw_i_mini,
+    'J': draw_j_mini,
+    'K': draw_k_mini,
+    'L': draw_l_mini,
+    'M': draw_m_mini,
+    'N': draw_n_mini,
+    'O': draw_o_mini,
+    'P': draw_p_mini,
+    'Q': draw_q_mini,
+    'R': draw_r_mini,
+    'S': draw_s_mini,
+    'T': draw_t_mini,
+    'U': draw_u_mini,
+    'V': draw_v_mini,
+    'W': draw_w_mini,
+    'X': draw_x_mini,
+    'Y': draw_y_mini,
+    'Z': draw_z_mini,
+    '1': draw_1_mini,
+    '2': draw_2_mini,
+    '3': draw_3_mini,
+    '4': draw_4_mini,
+    '5': draw_5_mini,
+    '6': draw_6_mini,
+    '7': draw_7_mini,
+    '8': draw_8_mini,
+    '9': draw_9_mini,
+    '0': draw_0_mini,
     }
 
 event_to_char = {

@@ -3,8 +3,13 @@ from random import randint
 
 import numpy as np
 import pygame
+import pygame.mixer as mixer
 
 import letters
+import sound
+
+pygame.init()
+pygame.mixer.pre_init(11025, -16, 1)
 
 DIM_X, DIM_Y = 155, 120
 BOUNDARY_X, BOUNDARY_Y = 125, 100
@@ -14,7 +19,7 @@ DISP = np.array((X_GAP, Y_GAP)).astype(int)
 
 RESOLUTION = np.array((DIM_X, DIM_Y))
 PSEUDO_SCREEN = pygame.Surface(RESOLUTION)
-SCREEN = pygame.display.set_mode(RESOLUTION * 8, pygame.FULLSCREEN)
+SCREEN = pygame.display.set_mode(RESOLUTION * 8)
 pygame.mouse.set_visible(False)
 
 pygame.display.set_caption('Outbreak')
@@ -59,6 +64,13 @@ class HighScores():
                 user, points = score_text.split(',')
                 self.users.append(user)
                 self.points.append(int(points))
+    
+    @staticmethod
+    def calculate_score(game_time):
+        '''
+        Calculates the score of the user.
+        '''
+        return 10 * int(game_time / 100)
     
     def new_score(self, insert_points):
         '''
@@ -271,6 +283,7 @@ class Character():
                 self.new_target()
                 if len(characters) < 100 and randint(1, 10) == 1:
                     eggs.append(Egg(self.pos))
+                    sound.layegg_wav.play()
     
     def mainloop(self):
         '''
@@ -334,6 +347,7 @@ class Shockwave():
         '''
         self.pos = pos
         self.radius = 1
+        sound.shockwave_wav.play()
     
     def draw(self):
         '''
@@ -358,6 +372,7 @@ class Shockwave():
                     char.id = 'Disinfected'
                     char.new_target()
                     char.colour = colours['red']
+                    time_passed[0] += 100
         
         if self.radius > 20:
             shockwaves.remove(self)
@@ -423,7 +438,7 @@ def register_objects():
     
     for egg in eggs:
         egg.mainloop()
-
+    
     for shockwave in shockwaves:
         shockwave.mainloop()
 
@@ -436,7 +451,7 @@ def display_objects():
     
     # Draw a border
     pygame.draw.lines(PSEUDO_SCREEN, colours['white'], True,
-                      (DISP + (0, 0),
+                      (DISP,
                        DISP + (BOUNDARY_X - 1, 0),
                        DISP + (BOUNDARY_X - 1, BOUNDARY_Y - 1),
                        DISP + (0, BOUNDARY_Y - 1)))
@@ -473,55 +488,89 @@ def display_objects():
     for shockwave in shockwaves:
         shockwave.draw()
     
+    # Draws the score at the top right
+    write_right_align(str(high_scores.calculate_score(time_passed[0])), y=1,
+                      size='small')
+    
     # Enlarges the screen
     SCREEN.blit(pygame.transform.scale(PSEUDO_SCREEN, RESOLUTION * 8), (0, 0))
     pygame.display.flip()
 
-def write_left_align(text, y, user_write=False):
+def write_left_align(text, *, y, x=1, size='large'):
     '''
     Draws left aligned text.
     '''
-    x = 1
-    for letter in text:
-        letters.char_to_func[letter](PSEUDO_SCREEN, DISP + np.array((x, y)))
-        x += 10
+    if size == 'large':
+        gap = 10
+        char_dict = letters.char_to_func
+    else:
+        gap = 6
+        char_dict = letters.char_to_mini_func
     
-    if x < 41 and user_write:
-        pygame.draw.line(PSEUDO_SCREEN, colours['green'],
-            DISP + np.array((x, y + 8)), DISP + np.array((x + 8, y + 8)))
+    for char in text:
+        char_dict[char](PSEUDO_SCREEN, np.array((x, y)))
+        x += gap
 
-def write_right_align(text, y):
+def write_right_align(text, *, y, x=DIM_X, size='large'):
     '''
     Displays right aligned text.
     '''
-    x = 115
-    for digit in str(text)[::-1]:
-        letters.char_to_func[digit](PSEUDO_SCREEN, DISP + np.array((x, y)))
-        x -= 10
+    if size == 'large':
+        gap = 10
+        char_dict = letters.char_to_func
+    else:
+        gap = 6
+        char_dict = letters.char_to_mini_func
+    
+    for char in str(text)[::-1]:
+        x -= gap
+        char_dict[char](PSEUDO_SCREEN, np.array((x, y)))
+
+def write_centre_align(text, *, y, size='large'):
+    '''
+    Displays centre aligned text.
+    '''
+    if size == 'large':
+        gap = 10
+        char_dict = letters.char_to_func
+    else:
+        gap = 6
+        char_dict = letters.char_to_mini_func
+
+    x = int((DIM_X - len(text) * gap) / 2)
+    for char in text:
+        char_dict[char](PSEUDO_SCREEN, np.array((x, y)))
+        x += gap
+
 
 def display_highscores():
     '''
     Displays the highscores onto the screen.
     '''
     PSEUDO_SCREEN.fill(colours['black'])
-    y = 0
+    write_centre_align('HIGHSCORES', y=5)
+    y = 20
     left_x = 1
     right_x = 112
     for i, (user, points) in enumerate(high_scores.scores):
         x = left_x
         if i == high_scores.index:
-            write_left_align(high_scores.insert_user, y, True)
+            write_left_align(high_scores.insert_user, y=y)
             if len(high_scores.insert_user) == 4:
-                write_right_align("ENTER", y)
+                write_left_align('ENTER', y=y, x=46)
+            else:
+                pygame.draw.line(PSEUDO_SCREEN, colours['green'],
+                    np.array((len(high_scores.insert_user) * 10 + 1, y + 8)),
+                    np.array((len(high_scores.insert_user) * 10 + 8, y + 8)))
             y += 10
-            if y == 100:
+            if i == 8:
                 break
         
-        write_left_align(user, y)
-        write_right_align(points, y)
+        write_left_align(user, y=y)
+        write_right_align(points, y=y)
         
         y += 10
-        if y == 100:
+        if i == 9:
             break
     
     # Enlarges the screen
@@ -696,9 +745,10 @@ class StartScreen():
                 self.on_start_screen = False
                 self.flash_i = 0
                 return
-        
+            
         self.flash_i += 1
         
+        PSEUDO_SCREEN.fill(colours['black'])
         PSEUDO_SCREEN.blit(self.start_img, DISP)
                 
         if self.flash_i > 25:
