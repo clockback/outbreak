@@ -158,16 +158,16 @@ class Character():
         self.pos[1] = y
     
     def distance(self, obj):
-        """
+        '''
         Calculates the absolute position difference in pixels between two
         objects.
-        """
+        '''
         return sum(abs(self.pos - obj.pos))
     
     def move_left(self):
-        """
+        '''
         Moves the character leftwards.
-        """
+        '''
         if self.id == 'Infected':
             for char in filter(lambda x: x.id == 'Infected', characters):
                 if abs(char.x - self.x) < 2 and abs(char.y - self.y) < 2:
@@ -179,9 +179,9 @@ class Character():
             self.set_animate()
     
     def move_right(self):
-        """
+        '''
         Moves the character rightwards.
-        """
+        '''
         if self.id == 'Infected':
             for char in filter(lambda x: x.id == 'Infected', characters):
                 if abs(char.x - self.x) < 2 and abs(char.y - self.y) < 2:
@@ -193,9 +193,9 @@ class Character():
             self.set_animate()
     
     def move_up(self):
-        """
+        '''
         Moves the character upwards.
-        """
+        '''
         if self.id == 'Infected':
             for char in filter(lambda x: x.id == 'Infected', characters):
                 if abs(char.x - self.x) < 2 and abs(char.y - self.y) < 2:
@@ -207,9 +207,9 @@ class Character():
             self.set_animate()
     
     def move_down(self):
-        """
+        '''
         Moves the character downwards.
-        """
+        '''
         if self.id == 'Infected':
             for char in filter(lambda x: x.id == 'Infected', characters):
                 if abs(char.x - self.x) < 2 and abs(char.y - self.y) < 2:
@@ -221,9 +221,9 @@ class Character():
             self.set_animate()
     
     def animate(self):
-        """
+        '''
         Animates the character.
-        """
+        '''
         if self.frame >= 0:
             self.frame += 1
             if self.frame == 3:
@@ -233,18 +233,18 @@ class Character():
                     self.sprite = 0
     
     def new_target(self):
-        """
+        '''
         Create a new target.
-        """
+        '''
         self.target = np.array((
             randint(1, BOUNDARY_X - 3),
             randint(1, BOUNDARY_Y - 3)
             ))
     
     def move_ai(self):
-        """
+        '''
         Moves the NPC.
-        """
+        '''
         # Non-infected NPCs approach random targets
         if self.target is not None and self.frame in (-1, 1):
             if self.x > self.target[0]:
@@ -404,6 +404,7 @@ class Egg():
         '''
         Hatches the egg.
         '''
+        sound.hatch_wav.play()
         eggs.remove(self)
         characters.append(Character(char_id='Infected', pos=self.pos))
     
@@ -425,6 +426,7 @@ class Egg():
         if self.age > 150 and self.age % 5 == 0:
             if self.colour is colours['blue']:
                 self.colour = colours['cyan']
+                sound.crack_wav.play()
             else:
                 self.colour = colours['blue']
 
@@ -496,7 +498,7 @@ def display_objects():
     SCREEN.blit(pygame.transform.scale(PSEUDO_SCREEN, RESOLUTION * 8), (0, 0))
     pygame.display.flip()
 
-def write_left_align(text, *, y, x=1, size='large'):
+def write_left_align(text, *, y, x=1, colour=colours['green'], size='large'):
     '''
     Draws left aligned text.
     '''
@@ -508,10 +510,11 @@ def write_left_align(text, *, y, x=1, size='large'):
         char_dict = letters.char_to_mini_func
     
     for char in text:
-        char_dict[char](PSEUDO_SCREEN, np.array((x, y)))
+        char_dict[char](PSEUDO_SCREEN, np.array((x, y)), colour=colour)
         x += gap
 
-def write_right_align(text, *, y, x=DIM_X, size='large'):
+def write_right_align(text, *, y, x=DIM_X, colour=colours['green'],
+                      size='large'):
     '''
     Displays right aligned text.
     '''
@@ -524,9 +527,9 @@ def write_right_align(text, *, y, x=DIM_X, size='large'):
     
     for char in str(text)[::-1]:
         x -= gap
-        char_dict[char](PSEUDO_SCREEN, np.array((x, y)))
+        char_dict[char](PSEUDO_SCREEN, np.array((x, y)), colour=colour)
 
-def write_centre_align(text, *, y, size='large'):
+def write_centre_align(text, *, y, colour=colours['green'], size='large'):
     '''
     Displays centre aligned text.
     '''
@@ -539,7 +542,7 @@ def write_centre_align(text, *, y, size='large'):
 
     x = int((DIM_X - len(text) * gap) / 2)
     for char in text:
-        char_dict[char](PSEUDO_SCREEN, np.array((x, y)))
+        char_dict[char](PSEUDO_SCREEN, np.array((x, y)), colour=colour)
         x += gap
 
 
@@ -726,7 +729,6 @@ class StartScreen():
         self.on_start_screen = True
         
         self.start_img = pygame.image.load('play_screen.png')
-        self.flash_text_img = pygame.image.load('flash_text.png')
     
     def start_screen(self):
         '''
@@ -752,7 +754,10 @@ class StartScreen():
         PSEUDO_SCREEN.blit(self.start_img, DISP)
                 
         if self.flash_i > 25:
-            PSEUDO_SCREEN.blit(self.flash_text_img, DISP + np.array((33, 70)))
+            write_centre_align('PRESS ANY KEY', y=DISP[1] + 70, size='small',
+                               colour=colours['white'])
+            write_centre_align('TO START', y=DISP[1] + 76, size='small',
+                               colour=colours['white'])
             if self.flash_i > 50:
                 self.flash_i = 0
         

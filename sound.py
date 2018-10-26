@@ -40,3 +40,35 @@ for s in range(n_samples):
     buf[s] += volume * int(round(max_sample * np.sin(2 * np.pi * 1.2 * frequency * t)))
 
 layegg_wav = pygame.sndarray.make_sound(buf)
+
+frequency = 200
+duration = 0.3
+volume = 0.15
+
+n_samples = int(round(duration * sample_rate))
+
+buf = np.zeros(n_samples, dtype=np.int16)
+
+for s in range(n_samples):
+    t = float(s) / sample_rate # time in seconds
+    if t > 0.05:
+        volume *= 0.9998
+    buf[s] = volume * int(round(max_sample * np.sin(2 * np.pi * frequency * t)))
+
+crack_wav = pygame.sndarray.make_sound(buf)
+
+frequency = 440
+duration = 0.3
+volume = 0.15
+
+n_samples = int(round(duration * sample_rate))
+
+buf = np.zeros(n_samples, dtype=np.int16)
+
+for s in range(n_samples):
+    t = float(s) / sample_rate # time in seconds
+    if t > 0.05:
+        volume *= 0.9998
+    buf[s] = volume * int(round(max_sample * np.sin(2 * np.pi * frequency * t)))
+
+hatch_wav = pygame.sndarray.make_sound(buf)
