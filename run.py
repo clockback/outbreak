@@ -19,13 +19,18 @@ DISP = np.array((X_GAP, Y_GAP)).astype(int)
 
 RESOLUTION = np.array((DIM_X, DIM_Y))
 PSEUDO_SCREEN = pygame.Surface(RESOLUTION)
-SCREEN = pygame.display.set_mode(RESOLUTION * 8)
+SCREEN = pygame.display.set_mode(RESOLUTION * 8, pygame.FULLSCREEN)
 pygame.mouse.set_visible(False)
 
 pygame.display.set_caption('Outbreak')
 
 CLOCK = pygame.time.Clock()
-time_passed = np.array((0, 0))
+
+# Time passed contains the following values:
+# time_passed[0] = time player has been active in game + (bonus points / 10)
+# time_passed[1] = time since player was caught by infected
+# time_passed[2] = time since beginning of new game
+time_passed = np.array((0, 0, 0))
 
 colours = {
     'black': 255 * np.array((0, 0, 0)),
@@ -113,6 +118,7 @@ class Character():
         self.pos = np.array(pos)
         if self.id == 'Main':
             self.colour = colours['yellow']
+            self.lives = 3
         elif self.id == 'Infected':
             self.colour = colours['green']
         else:
@@ -121,7 +127,9 @@ class Character():
         self.sprite = 0
         self.distract_time = 0
         self.caught = False
-        if self.id in ('Main', 'Infected'):
+        if self.id == 'Infected' and MAIN.caught:
+            self.on_death_target()
+        elif self.id in ('Main', 'Infected'):
             self.target = None
         else:
             self.target = np.array((
@@ -232,6 +240,13 @@ class Character():
                 if self.sprite == 4:
                     self.sprite = 0
     
+    def on_death_target(self):
+        '''
+        Creates a new target in the top left of the screen when the main
+        character dies.
+        '''
+        self.target = np.random.uniform(1, 10, 2).astype(int)
+    
     def new_target(self):
         '''
         Create a new target.
@@ -289,6 +304,10 @@ class Character():
         '''
         Changes the sprite mainloop.
         '''
+        if self.id == 'Main':
+            self.revive()
+            self.flash()
+        
         self.distract()
         self.move_ai()
         self.animate()
@@ -309,24 +328,32 @@ class Character():
         Infects all surrounding NPCs.
         '''
         infect_radius = 5
-        if self.id == 'Infected':
-            for char in filter(lambda x: x.id not in ('Infected', 'Main'),
-                characters):
-                if (abs(char.x - self.x) < infect_radius and
-                    abs(char.y - self.y) < infect_radius):
-                    char.colour = colours['green']
-                    char.id = 'Infected'
-            
-            if (abs(MAIN.x - self.x) < infect_radius and
-                abs(MAIN.y - self.y) < infect_radius and
-                not MAIN.caught):
-                for shockwave in shockwaves:
-                    if sum(MAIN.pos - shockwave.pos) < shockwave.radius:
-                        return
-                MAIN.colour = colours['green']
-                MAIN.caught = True
-                time_since_caught = 0
-                high_scores.new_score(10 * int(time_passed[0] / 100))
+        if self.id != 'Infected':
+            return
+        
+        for char in filter(lambda x: x.id not in ('Infected', 'Main'),
+            characters):
+            if (abs(char.x - self.x) < infect_radius and
+                abs(char.y - self.y) < infect_radius):
+                char.colour = colours['green']
+                char.id = 'Infected'
+                if MAIN.caught:
+                    char.on_death_target()
+        
+        if (abs(MAIN.x - self.x) < infect_radius and
+            abs(MAIN.y - self.y) < infect_radius and
+            not MAIN.caught and
+            MAIN.flash_i is None):
+            for shockwave in shockwaves:
+                if sum(MAIN.pos - shockwave.pos) < shockwave.radius:
+                    return
+            MAIN.colour = colours['green']
+            MAIN.caught = True
+            for char in characters:
+                if char.id == 'Infected':
+                    self.distract_time = 0
+                    char.on_death_target()
+            high_scores.new_score(10 * int(time_passed[0] / 100))
 
 
 class MainCharacter(Character):
@@ -335,7 +362,36 @@ class MainCharacter(Character):
     '''
     def __init__(self, pos):
         super().__init__(char_id='Main', pos=pos)
+        self.flash_i = None
+        self.mobile = False
+    
+    def revive(self):
+        '''
+        If the main character dies, and still has lives, it can be revived.
+        '''
+        if time_passed[1] == 100 and self.lives > 0:
+            self.pos = np.array((90, 90))
+            self.colour = colours['yellow']
+            self.caught = False
+            time_passed[1] = 0
+            self.lives -= 1
+            self.flash_i = 0
 
+    def flash(self):
+        '''
+        Upon revival, the main character flashes to alert the user to its
+        position. During this time, the user cannot be caught.
+        '''
+        if self.flash_i is not None:
+            self.flash_i += 1
+            if self.flash_i == 30:
+                self.flash_i = None
+    
+    def visible(self):
+        '''
+        Returns True if the main character can be seen.
+        '''
+        return self.flash_i is None or self.flash_i % 10 < 5
 
 class Shockwave():
     '''
@@ -431,18 +487,58 @@ class Egg():
                 self.colour = colours['blue']
 
 
+def draw_heart(pos):
+    '''
+    Draws a heart, representing a life.
+    '''
+    pygame.draw.lines(PSEUDO_SCREEN, colours['red'], False,
+                      (pos + (0, 1),
+                       pos + (0, 2),
+                       pos + (2, 4),
+                       pos + (4, 2),
+                       pos + (4, 1),
+                       pos + (3, 0),
+                       pos + (3, 2),
+                       pos + (2, 3),
+                       pos + (1, 2),
+                       pos + (1, 0),
+                       pos + (2, 1),
+                       pos + (2, 2)))
+
+def draw_countdown():
+    '''
+    Draws the countdown on screen.
+    '''
+    if MAIN.mobile:
+        return
+    
+    y = int(DIM_Y / 2) - 5
+    
+    if time_passed[2] < 20:
+        text = '3'
+    elif time_passed[2] < 40:
+        text = '2'
+    else:
+        text = '1'
+    
+    write_centre_align(text, y=y, colour=colours['white'])
+
 def register_objects():
     '''
     Runs the mainloop.
     '''
-    for character in characters:
-        character.mainloop()
+    if MAIN.mobile:
+        for character in characters:
+            character.mainloop()
+        
+        for egg in eggs:
+            egg.mainloop()
+        
+        for shockwave in shockwaves:
+            shockwave.mainloop()
     
-    for egg in eggs:
-        egg.mainloop()
-    
-    for shockwave in shockwaves:
-        shockwave.mainloop()
+    elif time_passed[2] > 60:
+        MAIN.mobile = True
 
 def display_objects():
     '''
@@ -466,6 +562,8 @@ def display_objects():
     
     # Displays the characters on the screen
     for char in characters:
+        if char.id == 'Main' and not char.visible():
+            continue
         pygame.draw.rect(PSEUDO_SCREEN, char.colour,
                          (DISP + char.pos, np.array((2, 2))))
         if char.sprite == 1:
@@ -493,6 +591,14 @@ def display_objects():
     # Draws the score at the top right
     write_right_align(str(high_scores.calculate_score(time_passed[0])), y=1,
                       size='small')
+    
+    # Draws hearts representing lives
+    for heart_i in range(MAIN.lives):
+        draw_heart(np.array((heart_i * 6 + 1, 1)))
+    
+    write_centre_align('OUTBREAK', y=2, size='small')
+    
+    draw_countdown()
     
     # Enlarges the screen
     SCREEN.blit(pygame.transform.scale(PSEUDO_SCREEN, RESOLUTION * 8), (0, 0))
@@ -586,9 +692,12 @@ def new_game():
     '''
     time_passed[0] = 0
     time_passed[1] = 0
+    time_passed[2] = 0
     MAIN.caught = False
     MAIN.colour = colours['yellow']
     MAIN.pos = np.array((90, 90))
+    MAIN.lives = 3
+    MAIN.mobile = False
     characters.clear()
     characters.append(MAIN)
     characters.append(Character('Infected', (10, 10)))
@@ -636,7 +745,7 @@ def control_main():
     Moves the character appropriately.
     '''
     pressed = pygame.key.get_pressed()
-    if not MAIN.caught:
+    if MAIN.mobile and not MAIN.caught:
         if pressed[pygame.K_LEFT]:
             MAIN.move_left()
         elif pressed[pygame.K_RIGHT]:
@@ -658,12 +767,16 @@ def increment_time():
     '''
     Adjusts the recorded time appropriately.
     '''
+    # Increases the time since the game started (for countdown purposes only)
+    if not MAIN.mobile:
+        time_passed[2] += 1
+    
     # Increases the time since game started
-    if not MAIN.caught:
+    elif not MAIN.caught:
         time_passed[0] += 1
     
     # Otherwise increases the time since caught
-    elif time_passed[1] < 100:
+    elif time_passed[1] <= 100:
         time_passed[1] += 1
 
 def handle_key_down():
@@ -709,7 +822,7 @@ def mainloop():
     control_main()
     increment_time()
     
-    if time_passed[1] < 100:
+    if time_passed[1] <= 100:
         register_objects()
         display_objects()
     else:
@@ -768,7 +881,7 @@ class StartScreen():
         CLOCK.tick(25)
 
 SS = StartScreen()
-MAIN = MainCharacter((40, 40))
+MAIN = MainCharacter((90, 90))
 characters = []
 eggs = []
 shockwaves = []
