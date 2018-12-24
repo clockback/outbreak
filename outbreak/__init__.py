@@ -103,7 +103,7 @@ class HighScores():
         '''
         with open('highscores.txt', 'w') as f:
             for user, points in self.scores:
-                f.write((f'{user},{points}\n'))
+                f.write(('{},{}\n'.format(user, points)))
 
 
 class Character():
