@@ -5,7 +5,7 @@ from setuptools import setup
 
 
 package_name = 'outbreak'
-filename = 'outbreak/__init__.py'
+filename = 'src/__init__.py'
 
 
 def get_version():
