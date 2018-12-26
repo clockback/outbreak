@@ -4,8 +4,8 @@ from random import randint
 import numpy as np
 import pygame
 
-import letters
-import sound
+from . import letters
+from . import sound
 
 pygame.init()
 pygame.mixer.pre_init(11025, -16, 1)
@@ -18,7 +18,7 @@ DISP = np.array((X_GAP, Y_GAP)).astype(int)
 
 RESOLUTION = np.array((DIM_X, DIM_Y))
 PSEUDO_SCREEN = pygame.Surface(RESOLUTION)
-SCREEN = pygame.display.set_mode(RESOLUTION * 8, pygame.FULLSCREEN)
+SCREEN = pygame.display.set_mode(RESOLUTION * 8)#pygame.FULLSCREEN)
 pygame.mouse.set_visible(False)
 
 pygame.display.set_caption('Outbreak')
