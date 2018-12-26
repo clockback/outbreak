@@ -1,6 +1,8 @@
 import numpy as np
 import pygame
 
+pygame.init()
+
 bits = 16
 
 pygame.mixer.pre_init(44100, -bits, 1)
