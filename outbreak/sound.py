@@ -1,12 +1,11 @@
 import numpy as np
 import pygame
 
-pygame.init()
-
 bits = 16
 
 pygame.mixer.pre_init(44100, -bits, 1)
 pygame.init()
+
 duration = 0.2
 frequency = 330
 sample_rate = 44100

@@ -4,11 +4,11 @@ from random import randint
 import numpy as np
 import pygame
 
+pygame.mixer.pre_init(11025, -16, 1)
+pygame.init()
+
 from . import letters
 from . import sound
-
-pygame.init()
-pygame.mixer.pre_init(11025, -16, 1)
 
 DIM_X, DIM_Y = 155, 120
 BOUNDARY_X, BOUNDARY_Y = 125, 100
