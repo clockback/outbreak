@@ -834,7 +834,7 @@ class StartScreen():
         self.flash_i = 0
         self.on_start_screen = True
         
-        print(os.listdir)
+        print(listdir)
         
         self.start_img = pygame.image.load(
             path.join('outbreak', 'play_screen.png')
