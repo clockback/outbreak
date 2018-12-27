@@ -1,4 +1,4 @@
-from os import listdir, path
+from os import listdir, path, getcwd
 from random import randint
 
 import numpy as np
@@ -834,6 +834,7 @@ class StartScreen():
         self.flash_i = 0
         self.on_start_screen = True
         
+        print(getcwd())
         print(listdir())
         
         self.start_img = pygame.image.load(
