@@ -833,7 +833,8 @@ class StartScreen():
         '''
         self.flash_i = 0
         self.on_start_screen = True
-        
+
+        print(path.dirname(path.realpath(__file__)))
         print(getcwd())
         print(listdir())
         
