@@ -1,4 +1,4 @@
-from os import listdir
+from os import listdir, path
 from random import randint
 
 import numpy as np
@@ -834,9 +834,8 @@ class StartScreen():
         self.flash_i = 0
         self.on_start_screen = True
 
-        import sys; print(sys.path)
         self.start_img = pygame.image.load(
-            os.path.join('outbreak', 'play_screen.png')
+            path.join('outbreak', 'play_screen.png')
             )
     
     def start_screen(self):
