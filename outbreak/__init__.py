@@ -695,8 +695,8 @@ def new_game():
     characters.append(MAIN)
     characters.append(Character('Infected', (10, 10)))
     for __ in range(11):
-        x = randint(1, BOUNDARY_X - 2)
-        y = randint(1, BOUNDARY_Y - 2)
+        x = randint(1, BOUNDARY_X - 3)
+        y = randint(1, BOUNDARY_Y - 3)
         characters.append(Character('Disinfected', (x, y)))
     eggs.clear()
     shockwaves.clear()
