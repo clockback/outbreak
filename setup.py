@@ -34,6 +34,7 @@ setup(
     url='https://github.com/tuxbert/outbreak',
     long_description=get_long_description(),
     packages=[package_name],
+    include_package_data=True,
     entry_points={
         'console_scripts': [
             'outbreak = outbreak:main'
