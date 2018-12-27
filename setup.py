@@ -33,7 +33,7 @@ setup(
     description='Outbreak',
     url='https://github.com/tuxbert/outbreak',
     long_description=get_long_description(),
-    packages=[package_name],
+    packages=['outbreak', 'outbreak.bin'],
     include_package_data=True,
     entry_points={
         'console_scripts': [
