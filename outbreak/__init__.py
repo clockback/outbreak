@@ -837,10 +837,7 @@ class StartScreen():
         print(path.dirname(path.realpath(__file__)))
         
         self.start_img = pygame.image.load(
-            path.join(
-                path.dirname(path.realpath(__file__)), 'outbreak',
-                'play_screen.png'
-                )
+            path.join(path.dirname(path.realpath(__file__)), 'play_screen.png')
             )
     
     def start_screen(self):
