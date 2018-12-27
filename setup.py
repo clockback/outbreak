@@ -40,5 +40,6 @@ setup(
             'outbreak = outbreak:main'
         ]
     },
+    scripts=['bin/outbreak'],
     license='License :: OSI Approved :: MIT License',
 )
