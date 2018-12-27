@@ -33,11 +33,11 @@ setup(
     description='Outbreak',
     url='https://github.com/tuxbert/outbreak',
     long_description=get_long_description(),
-    packages=['outbreak', 'outbreak.bin'],
+    packages=[package_name],
     include_package_data=True,
     entry_points={
         'console_scripts': [
-            'outbreak = bin.outbreak:main'
+            'outbreak = outbreak'
         ]
     },
     license='License :: OSI Approved :: MIT License',
