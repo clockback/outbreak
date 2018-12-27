@@ -834,8 +834,6 @@ class StartScreen():
         self.flash_i = 0
         self.on_start_screen = True
 
-        print(path.dirname(path.realpath(__file__)))
-        
         self.start_img = pygame.image.load(
             path.join(path.dirname(path.realpath(__file__)), 'play_screen.png')
             )
