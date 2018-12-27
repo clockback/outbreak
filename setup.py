@@ -37,7 +37,7 @@ setup(
     include_package_data=True,
     entry_points={
         'console_scripts': [
-            'outbreak = outbreak'
+            'outbreak = outbreak:main'
         ]
     },
     license='License :: OSI Approved :: MIT License',

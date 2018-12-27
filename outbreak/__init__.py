@@ -887,12 +887,13 @@ new_game()
 
 high_scores = HighScores()
 
-try:
-    while MAIN in characters:
-        if SS.on_start_screen:
-            SS.start_screen()
-        else:
-            mainloop()
-finally:
-    pygame.display.quit()
-    pygame.quit()
+def main():
+    try:
+        while MAIN in characters:
+            if SS.on_start_screen:
+                SS.start_screen()
+            else:
+                mainloop()
+    finally:
+        pygame.display.quit()
+        pygame.quit()
