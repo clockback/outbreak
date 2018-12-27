@@ -1,4 +1,4 @@
-from os import listdir, path, getcwd
+from os import listdir, path
 from random import randint
 
 import numpy as np
@@ -835,11 +835,12 @@ class StartScreen():
         self.on_start_screen = True
 
         print(path.dirname(path.realpath(__file__)))
-        print(getcwd())
-        print(listdir())
         
         self.start_img = pygame.image.load(
-            path.join('outbreak', 'play_screen.png')
+            path.join(
+                path.dirname(path.realpath(__file__)), 'outbreak',
+                'play_screen.png'
+                )
             )
     
     def start_screen(self):
