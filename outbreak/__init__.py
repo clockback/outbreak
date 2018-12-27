@@ -835,7 +835,9 @@ class StartScreen():
         self.on_start_screen = True
 
         import sys; print(sys.path)
-        self.start_img = pygame.image.load('outbreak/play_screen.png')
+        self.start_img = pygame.image.load(
+            os.path.join('outbreak', 'play_screen.png')
+            )
     
     def start_screen(self):
         '''
