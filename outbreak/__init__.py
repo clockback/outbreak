@@ -1,5 +1,6 @@
 from os import listdir, path
 from random import randint
+from typing import List
 
 import numpy as np
 import pygame
@@ -39,16 +40,16 @@ colours = {
     'magenta': 255 * np.array((1, 0, 1))
     }
 
-class HighScores():
+class HighScores:
     '''
     Reads and edits the high score file.
     '''
-    def __init__(self):
+    def __init__(self) -> None:
         '''
         If the highscores.txt file is missing, the file is written.
         '''
-        self.users = []
-        self.points = []
+        self.users : List[str] = []
+        self.points : List[int] = []
         self.insert_user = None
         self.insert_points = None
         self.index = -1
@@ -67,7 +68,7 @@ class HighScores():
                 self.points.append(int(points))
     
     @staticmethod
-    def calculate_score(game_time):
+    def calculate_score(game_time : int):
         '''
         Calculates the score of the user.
         '''
@@ -102,7 +103,7 @@ class HighScores():
                 f.write(('{},{}\n'.format(user, points)))
 
 
-class Character():
+class Character:
     '''
     A person which runs about.
     '''
@@ -140,19 +141,19 @@ class Character():
         '''
         return self.pos[0]
     
-    @property
-    def y(self):
-        '''
-        Returns the y position
-        '''
-        return self.pos[1]
-    
     @x.setter
     def x(self, x):
         '''
         Changes the x position
         '''
         self.pos[0] = x
+    
+    @property
+    def y(self):
+        '''
+        Returns the y position
+        '''
+        return self.pos[1]
     
     @y.setter
     def y(self, y):
@@ -390,7 +391,7 @@ class MainCharacter(Character):
         '''
         return self.flash_i is None or self.flash_i % 10 < 5
 
-class Shockwave():
+class Shockwave:
     '''
     A shockwave is visibly emitted from an egg.
     '''
@@ -430,7 +431,7 @@ class Shockwave():
         if self.radius > 20:
             shockwaves.remove(self)
 
-class Egg():
+class Egg:
     '''
     An egg hatches infected characters.
     '''
@@ -877,9 +878,9 @@ class StartScreen():
 
 SS = StartScreen()
 MAIN = MainCharacter((90, 90))
-characters = []
-eggs = []
-shockwaves = []
+characters : List[Character] = []
+eggs : List[Egg] = []
+shockwaves : List[Shockwave] = []
 
 new_game()
 
