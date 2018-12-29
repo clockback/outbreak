@@ -1,1 +1,1 @@
-from .bin import outbreak
+import outbreak
