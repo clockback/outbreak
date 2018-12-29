@@ -1,6 +1,5 @@
 from os import listdir, path
 from random import randint
-from typing import List
 
 import numpy as np
 import pygame
@@ -44,12 +43,12 @@ class HighScores:
     '''
     Reads and edits the high score file.
     '''
-    def __init__(self) -> None:
+    def __init__(self):
         '''
         If the highscores.txt file is missing, the file is written.
         '''
-        self.users : List[str] = []
-        self.points : List[int] = []
+        self.users = []
+        self.points = []
         self.insert_user = None
         self.insert_points = None
         self.index = -1
@@ -68,7 +67,7 @@ class HighScores:
                 self.points.append(int(points))
     
     @staticmethod
-    def calculate_score(game_time : int):
+    def calculate_score(game_time):
         '''
         Calculates the score of the user.
         '''
@@ -878,9 +877,9 @@ class StartScreen():
 
 SS = StartScreen()
 MAIN = MainCharacter((90, 90))
-characters : List[Character] = []
-eggs : List[Egg] = []
-shockwaves : List[Shockwave] = []
+characters = []
+eggs = []
+shockwaves = []
 
 new_game()
 
