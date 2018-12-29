@@ -1,3 +1,2 @@
-import outbreak
-
-print("Hello world!")
+def main():
+    import outbreak
