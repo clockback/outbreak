@@ -1,5 +1,4 @@
 def main():
-    print("Hoo boy.")
+    print("Hello, world!")
     import outbreak
-    print(type(outbreak))
-    help(outbreak)
+    print("Finished!")
