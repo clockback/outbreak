@@ -3,8 +3,7 @@ import pygame
 
 bits = 16
 
-pygame.mixer.pre_init(44100, -bits, 1)
-pygame.init()
+pygame.mixer.init(44100, -bits, 1)
 
 duration = 0.2
 frequency = 330
