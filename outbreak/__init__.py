@@ -40,13 +40,13 @@ colours = {
     }
 
 class HighScores:
-    '''
+    """
     Reads and edits the high score file.
-    '''
+    """
     def __init__(self):
-        '''
+        """
         If the highscores.txt file is missing, the file is written.
-        '''
+        """
         self.users = []
         self.points = []
         self.insert_user = None
@@ -68,15 +68,15 @@ class HighScores:
     
     @staticmethod
     def calculate_score(game_time):
-        '''
+        """
         Calculates the score of the user.
-        '''
+        """
         return 10 * int(game_time / 100)
     
     def new_score(self, insert_points):
-        '''
+        """
         Records the new score.
-        '''
+        """
         if insert_points <= min(self.points):
             return
         
@@ -88,28 +88,28 @@ class HighScores:
     
     @property
     def scores(self):
-        '''
+        """
         Returns the zip of the users and points.
-        '''
+        """
         return zip(self.users, self.points)
     
     def update_scores(self):
-        '''
+        """
         Writes to the highscores table.
-        '''
+        """
         with open('highscores.txt', 'w') as f:
             for user, points in self.scores:
                 f.write(('{},{}\n'.format(user, points)))
 
 
 class Character:
-    '''
+    """
     A person which runs about.
-    '''
+    """
     def __init__(self, char_id, pos):
-        '''
+        """
         Stores the data about the character.
-        '''
+        """
         self.id = char_id
         self.pos = np.array(pos)
         if self.id == 'Main':
@@ -135,43 +135,43 @@ class Character:
     
     @property
     def x(self):
-        '''
+        """
         Returns the x position
-        '''
+        """
         return self.pos[0]
     
     @x.setter
     def x(self, x):
-        '''
+        """
         Changes the x position
-        '''
+        """
         self.pos[0] = x
     
     @property
     def y(self):
-        '''
+        """
         Returns the y position
-        '''
+        """
         return self.pos[1]
     
     @y.setter
     def y(self, y):
-        '''
+        """
         Changes the y position
-        '''
+        """
         self.pos[1] = y
     
     def distance(self, obj):
-        '''
+        """
         Calculates the absolute position difference in pixels between two
         objects.
-        '''
+        """
         return sum(abs(self.pos - obj.pos))
     
     def move_left(self):
-        '''
+        """
         Moves the character leftwards.
-        '''
+        """
         if self.id == 'Infected':
             for char in filter(lambda x: x.id == 'Infected', characters):
                 if abs(char.x - self.x) < 2 and abs(char.y - self.y) < 2:
@@ -183,9 +183,9 @@ class Character:
             self.set_animate()
     
     def move_right(self):
-        '''
+        """
         Moves the character rightwards.
-        '''
+        """
         if self.id == 'Infected':
             for char in filter(lambda x: x.id == 'Infected', characters):
                 if abs(char.x - self.x) < 2 and abs(char.y - self.y) < 2:
@@ -197,9 +197,9 @@ class Character:
             self.set_animate()
     
     def move_up(self):
-        '''
+        """
         Moves the character upwards.
-        '''
+        """
         if self.id == 'Infected':
             for char in filter(lambda x: x.id == 'Infected', characters):
                 if abs(char.x - self.x) < 2 and abs(char.y - self.y) < 2:
@@ -211,9 +211,9 @@ class Character:
             self.set_animate()
     
     def move_down(self):
-        '''
+        """
         Moves the character downwards.
-        '''
+        """
         if self.id == 'Infected':
             for char in filter(lambda x: x.id == 'Infected', characters):
                 if abs(char.x - self.x) < 2 and abs(char.y - self.y) < 2:
@@ -225,9 +225,9 @@ class Character:
             self.set_animate()
     
     def animate(self):
-        '''
+        """
         Animates the character.
-        '''
+        """
         if self.frame >= 0:
             self.frame += 1
             if self.frame == 3:
@@ -237,25 +237,25 @@ class Character:
                     self.sprite = 0
     
     def on_death_target(self):
-        '''
+        """
         Creates a new target in the top left of the screen when the main
         character dies.
-        '''
+        """
         self.target = np.random.uniform(1, 10, 2).astype(int)
     
     def new_target(self):
-        '''
+        """
         Create a new target.
-        '''
+        """
         self.target = np.array((
             randint(1, BOUNDARY_X - 3),
             randint(1, BOUNDARY_Y - 3)
             ))
     
     def move_ai(self):
-        '''
+        """
         Moves the NPC.
-        '''
+        """
         # Non-infected NPCs approach random targets
         if self.target is not None and self.frame in (-1, 1):
             if self.x > self.target[0]:
@@ -284,9 +284,9 @@ class Character:
                 self.move_down()
     
     def distract(self):
-        '''
+        """
         Occasionally, the infected characters are distracted.
-        '''
+        """
         if self.id == 'Infected' and self.target is None:
             self.distract_time += 1
             if randint(1, 6000) < self.distract_time - 20:
@@ -297,9 +297,9 @@ class Character:
                     sound.layegg_wav.play()
     
     def mainloop(self):
-        '''
+        """
         Changes the sprite mainloop.
-        '''
+        """
         if self.id == 'Main':
             self.revive()
             self.flash()
@@ -310,9 +310,9 @@ class Character:
         self.infect()
     
     def set_animate(self, on=True):
-        '''
+        """
         Sets the animation on or off.
-        '''
+        """
         if on and self.frame == -1:
             self.frame = 0
         elif not on:
@@ -320,9 +320,9 @@ class Character:
             self.sprite = 0
     
     def infect(self):
-        '''
+        """
         Infects all surrounding NPCs.
-        '''
+        """
         infect_radius = 5
         if self.id != 'Infected':
             return
@@ -354,18 +354,18 @@ class Character:
 
 
 class MainCharacter(Character):
-    '''
+    """
     The main character who the user controls.
-    '''
+    """
     def __init__(self, pos):
         super().__init__(char_id='Main', pos=pos)
         self.flash_i = None
         self.mobile = False
     
     def revive(self):
-        '''
+        """
         If the main character dies, and still has lives, it can be revived.
-        '''
+        """
         if time_passed[1] == 100 and self.lives > 0:
             self.pos = np.array((90, 90))
             self.colour = colours['yellow']
@@ -375,37 +375,37 @@ class MainCharacter(Character):
             self.flash_i = 0
 
     def flash(self):
-        '''
+        """
         Upon revival, the main character flashes to alert the user to its
         position. During this time, the user cannot be caught.
-        '''
+        """
         if self.flash_i is not None:
             self.flash_i += 1
             if self.flash_i == 30:
                 self.flash_i = None
     
     def visible(self):
-        '''
+        """
         Returns True if the main character can be seen.
-        '''
+        """
         return self.flash_i is None or self.flash_i % 10 < 5
 
 class Shockwave:
-    '''
+    """
     A shockwave is visibly emitted from an egg.
-    '''
+    """
     def __init__(self, pos):
-        '''
+        """
         Stores the shockwave details.
-        '''
+        """
         self.pos = pos
         self.radius = 1
         sound.shockwave_wav.play()
     
     def draw(self):
-        '''
+        """
         Draws the shockwave.
-        '''
+        """
         pygame.draw.lines(PSEUDO_SCREEN, colours['magenta'], True,
             (self.pos + DISP + np.array((self.radius, 0)),
              self.pos + DISP + np.array((0, self.radius)),
@@ -413,9 +413,9 @@ class Shockwave:
              self.pos + DISP + np.array((0, -self.radius))))
     
     def mainloop(self):
-        '''
+        """
         Runs the shockwave mainloop.
-        '''
+        """
         self.radius += 2
         for char in characters:
                 if (char.id == 'Infected' and
@@ -431,21 +431,21 @@ class Shockwave:
             shockwaves.remove(self)
 
 class Egg:
-    '''
+    """
     An egg hatches infected characters.
-    '''
+    """
     def __init__(self, pos):
-        '''
+        """
         Stores the egg position.
-        '''
+        """
         self.pos = np.array(pos)
         self.age = 0
         self.colour = colours['blue']
     
     def mainloop(self):
-        '''
+        """
         Ages the egg appropriately.
-        '''
+        """
         self.age += 1
         self.flash()
         if self.age <= 200:
@@ -454,28 +454,28 @@ class Egg:
             self.hatch()
     
     def hatch(self):
-        '''
+        """
         Hatches the egg.
-        '''
+        """
         sound.hatch_wav.play()
         eggs.remove(self)
         characters.append(Character(char_id='Infected', pos=self.pos))
     
     def collect(self):
-        '''
+        """
         If the main character picks up the egg before hatching, it disinfects
         all characters within a radius, unless all of them are within range, in
         which case, one remains infected.
-        '''
+        """
         if MAIN.distance(self) < 5 and not MAIN.caught:
             eggs.remove(self)
             shockwaves.append(Shockwave(self.pos))
             time_passed[0] += 200
     
     def flash(self):
-        '''
+        """
         The egg shortly flashes before hatching.
-        '''
+        """
         if self.age > 150 and self.age % 5 == 0:
             if self.colour is colours['blue']:
                 self.colour = colours['cyan']
@@ -485,9 +485,9 @@ class Egg:
 
 
 def draw_heart(pos):
-    '''
+    """
     Draws a heart, representing a life.
-    '''
+    """
     pygame.draw.lines(PSEUDO_SCREEN, colours['red'], False,
                       (pos + (0, 1),
                        pos + (0, 2),
@@ -503,9 +503,9 @@ def draw_heart(pos):
                        pos + (2, 2)))
 
 def draw_countdown():
-    '''
+    """
     Draws the countdown on screen.
-    '''
+    """
     if MAIN.mobile:
         return
     
@@ -521,9 +521,9 @@ def draw_countdown():
     write_centre_align(text, y=y, colour=colours['white'])
 
 def register_objects():
-    '''
+    """
     Runs the mainloop.
-    '''
+    """
     if MAIN.mobile:
         for character in characters:
             character.mainloop()
@@ -538,9 +538,9 @@ def register_objects():
         MAIN.mobile = True
 
 def display_objects():
-    '''
+    """
     Refreshes the screen
-    '''
+    """
     # Refreshes the screen
     PSEUDO_SCREEN.fill(colours['black'])
     
@@ -602,9 +602,9 @@ def display_objects():
     pygame.display.flip()
 
 def write_left_align(text, *, y, x=1, colour=colours['green'], size='large'):
-    '''
+    """
     Draws left aligned text.
-    '''
+    """
     if size == 'large':
         gap = 10
         char_dict = letters.char_to_func
@@ -618,9 +618,9 @@ def write_left_align(text, *, y, x=1, colour=colours['green'], size='large'):
 
 def write_right_align(text, *, y, x=DIM_X, colour=colours['green'],
                       size='large'):
-    '''
+    """
     Displays right aligned text.
-    '''
+    """
     if size == 'large':
         gap = 10
         char_dict = letters.char_to_func
@@ -633,9 +633,9 @@ def write_right_align(text, *, y, x=DIM_X, colour=colours['green'],
         char_dict[char](PSEUDO_SCREEN, np.array((x, y)), colour=colour)
 
 def write_centre_align(text, *, y, colour=colours['green'], size='large'):
-    '''
+    """
     Displays centre aligned text.
-    '''
+    """
     if size == 'large':
         gap = 10
         char_dict = letters.char_to_func
@@ -649,9 +649,9 @@ def write_centre_align(text, *, y, colour=colours['green'], size='large'):
         x += gap
 
 def display_highscores():
-    '''
+    """
     Displays the highscores onto the screen.
-    '''
+    """
     PSEUDO_SCREEN.fill(colours['black'])
     write_centre_align('HIGHSCORES', y=5)
     y = 20
@@ -680,9 +680,9 @@ def display_highscores():
     pygame.display.flip()
 
 def new_game():
-    '''
+    """
     Creates a new game.
-    '''
+    """
     time_passed[0] = 0
     time_passed[1] = 0
     time_passed[2] = 0
@@ -702,25 +702,25 @@ def new_game():
     shockwaves.clear()
 
 def type_char(event):
-    '''
+    """
     Types a character in the credits.
-    '''
+    """
     if (high_scores.insert_user is not None and
         len(high_scores.insert_user) < 4):
         high_scores.insert_user += letters.event_to_char[event.key]
 
 def delete_char():
-    '''
+    """
     Removes the last character in the credits.
-    '''
+    """
     if (high_scores.insert_user is not None and
         len(high_scores.insert_user) > 0):
         high_scores.insert_user = high_scores.insert_user[:-1]
 
 def enter_name():
-    '''
+    """
     Occurs when the user finishes typing their name and hits enter.
-    '''
+    """
     if (high_scores.insert_user is not None and
         len(high_scores.insert_user) == 4):
         high_scores.users.insert(high_scores.index,
@@ -734,9 +734,9 @@ def enter_name():
         return True
 
 def control_main():
-    '''
+    """
     Moves the character appropriately.
-    '''
+    """
     pressed = pygame.key.get_pressed()
     if MAIN.mobile and not MAIN.caught:
         if pressed[pygame.K_LEFT]:
@@ -757,9 +757,9 @@ def control_main():
         MAIN.set_animate(False)
 
 def increment_time():
-    '''
+    """
     Adjusts the recorded time appropriately.
-    '''
+    """
     # Increases the time since the game started (for countdown purposes only)
     if not MAIN.mobile:
         time_passed[2] += 1
@@ -773,9 +773,9 @@ def increment_time():
         time_passed[1] += 1
 
 def handle_key_down():
-    '''
+    """
     Handles the pressing down of a key.
-    '''
+    """
     for event in pygame.event.get():
         if (event.type == pygame.QUIT or
             (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE)):
@@ -801,9 +801,9 @@ def handle_key_down():
                 SS.on_start_screen = True
 
 def mainloop():
-    '''
+    """
     Runs the mainloop for the game.
-    '''
+    """
     handle_key_down()
     
     if SS.on_start_screen:
@@ -824,13 +824,13 @@ def mainloop():
     CLOCK.tick(25)
 
 class StartScreen():
-    '''
+    """
     Provides a start screen for the player.
-    '''
+    """
     def __init__(self):
-        '''
+        """
         Stores the state of being on.
-        '''
+        """
         self.flash_i = 0
         self.on_start_screen = True
 
@@ -839,9 +839,9 @@ class StartScreen():
             )
     
     def start_screen(self):
-        '''
+        """
         Introduces the game to the character.
-        '''
+        """
         for event in pygame.event.get():
             if (event.type == pygame.QUIT or
                 (event.type == pygame.KEYDOWN and

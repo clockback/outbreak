@@ -40,6 +40,5 @@ setup(
             'outbreak = bin.outbreak:main'
         ]
     },
-#    scripts=['bin/outbreak.py'],
     license='License :: OSI Approved :: MIT License',
 )
