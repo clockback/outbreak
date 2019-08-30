@@ -25,9 +25,15 @@ def get_long_description():
         return ''
 
 
+def get_requirements():
+    with open('requirements.txt', 'r') as f:
+        return f.read().splitlines()
+
+
 setup(
     name=package_name,
     version=get_version(),
+    install_requires=get_requirements(),
     author='clockback',
     author_email='elliotpatonsimpson@gmail.com',
     description='Outbreak',
