@@ -1,4 +1,6 @@
-def main():
-    print("Hello, world!")
+def main() -> None:
+    """
+    Launches the application.
+    :return: None
+    """
     import outbreak
-    print("Finished!")
