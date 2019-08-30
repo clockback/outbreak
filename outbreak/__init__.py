@@ -19,7 +19,9 @@ DISP: np.ndarray = np.array((X_GAP, Y_GAP)).astype(int)
 
 RESOLUTION: np.ndarray = np.array((DIM_X, DIM_Y))
 PSEUDO_SCREEN: pygame.Surface = pygame.Surface(RESOLUTION)
-SCREEN: pygame.Surface = pygame.FULLSCREEN
+SCREEN: pygame.Surface = pygame.display.set_mode(
+    RESOLUTION * 8, pygame.FULLSCREEN
+)
 pygame.mouse.set_visible(False)
 
 pygame.display.set_caption('Outbreak')
