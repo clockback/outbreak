@@ -1,11 +1,22 @@
 import numpy as np
 import pygame
+from typing import Callable, Dict
 
-green = np.array((0, 255, 0))
+green: np.ndarray = np.array((0, 255, 0))
 
-def draw_a(surface, pos, colour=green):
+
+def draw_a(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'a'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((0, 8)), pos + np.array((4, 0)))
@@ -14,9 +25,19 @@ def draw_a(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((2, 4)), pos + np.array((6, 4)))
 
-def draw_b(surface, pos, colour=green):
+
+def draw_b(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'b'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((1, 0)), pos + np.array((1, 8)))
@@ -31,9 +52,19 @@ def draw_b(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((6, 5)), pos + np.array((6, 7)))
 
-def draw_c(surface, pos, colour=green):
+
+def draw_c(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'c'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((0, 1)), pos + np.array((0, 7)))
@@ -44,9 +75,19 @@ def draw_c(surface, pos, colour=green):
     surface.set_at(pos + np.array((6, 1)), colour)
     surface.set_at(pos + np.array((6, 7)), colour)
 
-def draw_d(surface, pos, colour=green):
+
+def draw_d(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'd'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((1, 0)), pos + np.array((1, 8)))
@@ -59,9 +100,19 @@ def draw_d(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((7, 2)), pos + np.array((7, 6)))
 
-def draw_e(surface, pos, colour=green):
+
+def draw_e(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'e'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((1, 0)), pos + np.array((1, 8)))
@@ -72,9 +123,19 @@ def draw_e(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((2, 8)), pos + np.array((7, 8)))
 
-def draw_f(surface, pos, colour=green):
+
+def draw_f(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'f'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((1, 0)), pos + np.array((1, 8)))
@@ -83,9 +144,19 @@ def draw_f(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((2, 4)), pos + np.array((7, 4)))
 
-def draw_g(surface, pos, colour=green):
+
+def draw_g(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'g'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((0, 1)), pos + np.array((0, 7)))
@@ -98,9 +169,19 @@ def draw_g(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((5, 6)), pos + np.array((7, 6)))
 
-def draw_h(surface, pos, colour=green):
+
+def draw_h(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'h'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((1, 0)), pos + np.array((1, 8)))
@@ -109,9 +190,19 @@ def draw_h(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((7, 0)), pos + np.array((7, 8)))
 
-def draw_i(surface, pos, colour=green):
+
+def draw_i(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'i'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((1, 0)), pos + np.array((7, 0)))
@@ -120,9 +211,19 @@ def draw_i(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((1, 8)), pos + np.array((7, 8)))
 
-def draw_j(surface, pos, colour=green):
+
+def draw_j(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'j'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((2, 0)), pos + np.array((8, 0)))
@@ -132,9 +233,19 @@ def draw_j(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((3, 8)), pos + np.array((1, 6)))
 
-def draw_k(surface, pos, colour=green):
+
+def draw_k(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'k'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((1, 0)), pos + np.array((1, 8)))
@@ -144,18 +255,38 @@ def draw_k(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((4, 5)), pos + np.array((7, 8)))
 
-def draw_l(surface, pos, colour=green):
+
+def draw_l(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'l'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((1, 0)), pos + np.array((1, 8)))
     pygame.draw.line(surface, colour,
                      pos + np.array((1, 8)), pos + np.array((7, 8)))
 
-def draw_m(surface, pos, colour=green):
+
+def draw_m(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'm'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((0, 0)), pos + np.array((0, 8)))
@@ -170,9 +301,19 @@ def draw_m(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((8, 0)), pos + np.array((8, 8)))
 
-def draw_n(surface, pos, colour=green):
+
+def draw_n(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'n'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((1, 0)), pos + np.array((1, 8)))
@@ -181,9 +322,19 @@ def draw_n(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((7, 0)), pos + np.array((7, 8)))
 
-def draw_o(surface, pos, colour=green):
+
+def draw_o(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'o'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((2, 0)), pos + np.array((6, 0)))
@@ -198,9 +349,19 @@ def draw_o(surface, pos, colour=green):
                      pos + np.array((0, 2)), pos + np.array((0, 6)))
     surface.set_at(pos + np.array((1, 7)), colour)
 
-def draw_p(surface, pos, colour=green):
+
+def draw_p(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'p'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((1, 0)), pos + np.array((1, 8)))
@@ -213,9 +374,19 @@ def draw_p(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((6, 4)), pos + np.array((7, 3)))
 
-def draw_q(surface, pos, colour=green):
+
+def draw_q(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'q'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((2, 0)), pos + np.array((6, 0)))
@@ -231,9 +402,19 @@ def draw_q(surface, pos, colour=green):
                      pos + np.array((0, 2)), pos + np.array((0, 6)))
     surface.set_at(pos + np.array((1, 7)), colour)
 
-def draw_r(surface, pos, colour=green):
+
+def draw_r(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'r'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((1, 0)), pos + np.array((1, 8)))
@@ -248,9 +429,19 @@ def draw_r(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((4, 5)), pos + np.array((7, 8)))
 
-def draw_s(surface, pos, colour=green):
+
+def draw_s(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 's'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     surface.set_at(pos + np.array((7, 1)), colour)
     pygame.draw.line(surface, colour,
@@ -269,18 +460,38 @@ def draw_s(surface, pos, colour=green):
                      pos + np.array((5, 8)), pos + np.array((2, 8)))
     surface.set_at(pos + np.array((1, 7)), colour)
 
-def draw_t(surface, pos, colour=green):
+
+def draw_t(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 't'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((1, 0)), pos + np.array((7, 0)))
     pygame.draw.line(surface, colour,
                      pos + np.array((4, 1)), pos + np.array((4, 8)))
 
-def draw_u(surface, pos, colour=green):
+
+def draw_u(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'u'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((1, 0)), pos + np.array((1, 7)))
@@ -289,9 +500,19 @@ def draw_u(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((7, 0)), pos + np.array((7, 7)))
 
-def draw_v(surface, pos, colour=green):
+
+def draw_v(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'v'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((0, 0)), pos + np.array((4, 8)))
@@ -304,9 +525,19 @@ def draw_v(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((8, 1)), pos + np.array((8, 0)))
 
-def draw_w(surface, pos, colour=green):
+
+def draw_w(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'w'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((0, 0)), pos + np.array((0, 6)))
@@ -322,18 +553,38 @@ def draw_w(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((8, 5)), pos + np.array((8, 0)))
 
-def draw_x(surface, pos, colour=green):
+
+def draw_x(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'x'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((0, 0)), pos + np.array((8, 8)))
     pygame.draw.line(surface, colour,
                      pos + np.array((8, 0)), pos + np.array((0, 8)))
 
-def draw_y(surface, pos, colour=green):
+
+def draw_y(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'y'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((0, 0)), pos + np.array((4, 4)))
@@ -342,9 +593,19 @@ def draw_y(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((4, 5)), pos + np.array((4, 8)))
 
-def draw_z(surface, pos, colour=green):
+
+def draw_z(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the letter 'z'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((1, 0)), pos + np.array((7, 0)))
@@ -353,9 +614,19 @@ def draw_z(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((1, 8)), pos + np.array((7, 8)))
 
-def draw_1(surface, pos, colour=green):
+
+def draw_1(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the digit '1'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((4, 0)), pos + np.array((4, 7)))
@@ -364,9 +635,19 @@ def draw_1(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((2, 1)), pos + np.array((3, 0)))
 
-def draw_2(surface, pos, colour=green):
+
+def draw_2(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the digit '2'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     surface.set_at(pos + np.array((0, 1)), colour)
     pygame.draw.line(surface, colour,
@@ -377,9 +658,19 @@ def draw_2(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((1, 8)), pos + np.array((8, 8)))
 
-def draw_3(surface, pos, colour=green):
+
+def draw_3(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the digit '3'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     surface.set_at(pos + np.array((1, 1)), colour)
     pygame.draw.line(surface, colour,
@@ -396,9 +687,19 @@ def draw_3(surface, pos, colour=green):
                      pos + np.array((6, 8)), pos + np.array((2, 8)))
     surface.set_at(pos + np.array((1, 7)), colour)
 
-def draw_4(surface, pos, colour=green):
+
+def draw_4(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the digit '4'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((5, 0)), pos + np.array((5, 8)))
@@ -409,9 +710,19 @@ def draw_4(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((0, 0)), pos + np.array((0, 3)))
 
-def draw_5(surface, pos, colour=green):
+
+def draw_5(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the digit '5'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((0, 0)), pos + np.array((8, 0)))
@@ -428,9 +739,19 @@ def draw_5(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((0, 8)), pos + np.array((5, 8)))
 
-def draw_6(surface, pos, colour=green):
+
+def draw_6(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the digit '6'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     surface.set_at(pos + np.array((8, 1)), colour)
     pygame.draw.line(surface, colour,
@@ -451,18 +772,38 @@ def draw_6(surface, pos, colour=green):
                      pos + np.array((6, 3)), pos + np.array((2, 3)))
     surface.set_at(pos + np.array((1, 4)), colour)
 
-def draw_7(surface, pos, colour=green):
+
+def draw_7(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the digit '7'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((1, 0)), pos + np.array((7, 0)))
     pygame.draw.line(surface, colour,
                      pos + np.array((7, 1)), pos + np.array((4, 8)))
 
-def draw_8(surface, pos, colour=green):
+
+def draw_8(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the digit '8'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((2, 0)), pos + np.array((6, 0)))
@@ -483,9 +824,19 @@ def draw_8(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((2, 8)), pos + np.array((6, 8)))
 
-def draw_9(surface, pos, colour=green):
+
+def draw_9(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the digit '9'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((3, 0)), pos + np.array((5, 0)))
@@ -504,9 +855,19 @@ def draw_9(surface, pos, colour=green):
     pygame.draw.line(surface, colour,
                      pos + np.array((6, 6)), pos + np.array((6, 8)))
 
-def draw_0(surface, pos, colour=green):
+
+def draw_0(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Draws the digit '0'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour,
                      pos + np.array((3, 0)), pos + np.array((5, 0)))
@@ -522,9 +883,19 @@ def draw_0(surface, pos, colour=green):
                      pos + np.array((2, 7)), pos + np.array((6, 1)))
     surface.set_at(pos + np.array((2, 7)), colour)
 
-def draw_a_mini(surface, pos, colour=green):
+
+def draw_a_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'A'
+    Draws a small letter 'A'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (0, 4),
@@ -537,9 +908,19 @@ def draw_a_mini(surface, pos, colour=green):
                        pos + (4, 2),
                        pos + (4, 4)))
 
-def draw_b_mini(surface, pos, colour=green):
+
+def draw_b_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'B'
+    Draws a small letter 'B'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (0, 2),
@@ -553,9 +934,19 @@ def draw_b_mini(surface, pos, colour=green):
                        pos + (3, 0),
                        pos + (4, 1)))
 
-def draw_c_mini(surface, pos, colour=green):
+
+def draw_c_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'C'
+    Draws a small letter 'C'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (4, 0),
@@ -565,9 +956,19 @@ def draw_c_mini(surface, pos, colour=green):
                        pos + (1, 4),
                        pos + (4, 4)))
 
-def draw_d_mini(surface, pos, colour=green):
+
+def draw_d_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'D'
+    Draws a small letter 'D'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, True,
                       (pos + (0, 0),
@@ -577,9 +978,19 @@ def draw_d_mini(surface, pos, colour=green):
                        pos + (3, 4),
                        pos + (0, 4)))
 
-def draw_e_mini(surface, pos, colour=green):
+
+def draw_e_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'E'
+    Draws a small letter 'E'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (4, 0),
@@ -588,9 +999,19 @@ def draw_e_mini(surface, pos, colour=green):
                        pos + (4, 4)))
     pygame.draw.line(surface, colour, pos + (1, 2), pos + (4, 2))
 
-def draw_f_mini(surface, pos, colour=green):
+
+def draw_f_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'F'
+    Draws a small letter 'F'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (4, 0),
@@ -598,9 +1019,19 @@ def draw_f_mini(surface, pos, colour=green):
                        pos + (0, 4)))
     pygame.draw.line(surface, colour, pos + (1, 2), pos + (3, 2))
 
-def draw_g_mini(surface, pos, colour=green):
+
+def draw_g_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'G'
+    Draws a small letter 'G'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (4, 0),
@@ -613,25 +1044,55 @@ def draw_g_mini(surface, pos, colour=green):
                        pos + (4, 2),
                        pos + (3, 2)))
 
-def draw_h_mini(surface, pos, colour=green):
+
+def draw_h_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'H'
+    Draws a small letter 'H'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour, pos + (0, 0), pos + (0, 4))
     pygame.draw.line(surface, colour, pos + (4, 0), pos + (4, 4))
     pygame.draw.line(surface, colour, pos + (1, 2), pos + (4, 2))
 
-def draw_i_mini(surface, pos, colour=green):
+
+def draw_i_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'I'
+    Draws a small letter 'I'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour, pos + (0, 0), pos + (4, 0))
     pygame.draw.line(surface, colour, pos + (0, 4), pos + (4, 4))
     pygame.draw.line(surface, colour, pos + (2, 1), pos + (2, 4))
 
-def draw_j_mini(surface, pos, colour=green):
+
+def draw_j_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'J'
+    Draws a small letter 'J'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (0, 0),
@@ -642,9 +1103,19 @@ def draw_j_mini(surface, pos, colour=green):
                        pos + (1, 4),
                        pos + (0, 3)))
 
-def draw_k_mini(surface, pos, colour=green):
+
+def draw_k_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'K'
+    Draws a small letter 'K'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (0, 0),
@@ -657,18 +1128,38 @@ def draw_k_mini(surface, pos, colour=green):
                        pos + (2, 2),
                        pos + (4, 4)))
 
-def draw_l_mini(surface, pos, colour=green):
+
+def draw_l_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'L'
+    Draws a small letter 'L'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (0, 0),
                        pos + (0, 4),
                        pos + (4, 4)))
 
-def draw_m_mini(surface, pos, colour=green):
+
+def draw_m_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'M'
+    Draws a small letter 'M'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (0, 4),
@@ -680,9 +1171,19 @@ def draw_m_mini(surface, pos, colour=green):
                        pos + (4, 4)))
     pygame.draw.line(surface, colour, pos + (2, 2), pos + (2, 4))
 
-def draw_n_mini(surface, pos, colour=green):
+
+def draw_n_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'N'
+    Draws a small letter 'N'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (0, 4),
@@ -694,9 +1195,19 @@ def draw_n_mini(surface, pos, colour=green):
                        pos + (4, 4),
                        pos + (4, 0)))
 
-def draw_o_mini(surface, pos, colour=green):
+
+def draw_o_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'O'
+    Draws a small letter 'O'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, True,
                       (pos + (1, 0),
@@ -708,9 +1219,19 @@ def draw_o_mini(surface, pos, colour=green):
                        pos + (4, 1),
                        pos + (3, 0)))
 
-def draw_p_mini(surface, pos, colour=green):
+
+def draw_p_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'P'
+    Draws a small letter 'P'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (0, 4),
@@ -720,9 +1241,19 @@ def draw_p_mini(surface, pos, colour=green):
                        pos + (3, 2),
                        pos + (1, 2)))
 
-def draw_q_mini(surface, pos, colour=green):
+
+def draw_q_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'Q'
+    Draws a small letter 'Q'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (2, 2),
@@ -735,9 +1266,19 @@ def draw_q_mini(surface, pos, colour=green):
                        pos + (4, 1),
                        pos + (4, 3)))
 
-def draw_r_mini(surface, pos, colour=green):
+
+def draw_r_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'R'
+    Draws a small letter 'R'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (0, 4),
@@ -749,9 +1290,19 @@ def draw_r_mini(surface, pos, colour=green):
                        pos + (4, 4)))
     pygame.draw.line(surface, colour, pos + (1, 2), pos + (2, 2))
 
-def draw_s_mini(surface, pos, colour=green):
+
+def draw_s_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'S'
+    Draws a small letter 'S'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (4, 0),
@@ -763,16 +1314,36 @@ def draw_s_mini(surface, pos, colour=green):
                        pos + (3, 4),
                        pos + (0, 4)))
 
-def draw_t_mini(surface, pos, colour=green):
+
+def draw_t_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'T'
+    Draws a small letter 'T'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour, pos + (0, 0), pos + (4, 0))
     pygame.draw.line(surface, colour, pos + (2, 1), pos + (2, 4))
 
-def draw_u_mini(surface, pos, colour=green):
+
+def draw_u_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'U'
+    Draws a small letter 'U'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (0, 0),
@@ -782,9 +1353,19 @@ def draw_u_mini(surface, pos, colour=green):
                        pos + (4, 3),
                        pos + (4, 0)))
 
-def draw_v_mini(surface, pos, colour=green):
+
+def draw_v_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'V'
+    Draws a small letter 'V'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (0, 0),
@@ -797,9 +1378,19 @@ def draw_v_mini(surface, pos, colour=green):
                        pos + (4, 1),
                        pos + (4, 0)))
 
-def draw_w_mini(surface, pos, colour=green):
+
+def draw_w_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'W'
+    Draws a small letter 'W'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (0, 0),
@@ -812,17 +1403,37 @@ def draw_w_mini(surface, pos, colour=green):
                        pos + (4, 3),
                        pos + (4, 0)))
 
-def draw_x_mini(surface, pos, colour=green):
+
+def draw_x_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'X'
+    Draws a small letter 'X'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.line(surface, colour, pos + (0, 0), pos + (4, 4))
     pygame.draw.line(surface, colour, pos + (4, 0), pos + (3, 1))
     pygame.draw.line(surface, colour, pos + (1, 3), pos + (0, 4))
 
-def draw_y_mini(surface, pos, colour=green):
+
+def draw_y_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'Y'
+    Draws a small letter 'Y'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (0, 0),
@@ -830,9 +1441,19 @@ def draw_y_mini(surface, pos, colour=green):
                        pos + (4, 0)))
     pygame.draw.line(surface, colour, pos + (2, 3), pos + (2, 4))
 
-def draw_z_mini(surface, pos, colour=green):
+
+def draw_z_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small letter 'Z'
+    Draws a small letter 'Z'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (0, 0),
@@ -840,9 +1461,19 @@ def draw_z_mini(surface, pos, colour=green):
                        pos + (0, 4),
                        pos + (4, 4)))
 
-def draw_1_mini(surface, pos, colour=green):
+
+def draw_1_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small digit '1'
+    Draws a small digit '1'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (0, 1),
@@ -851,9 +1482,19 @@ def draw_1_mini(surface, pos, colour=green):
                        pos + (2, 3)))
     pygame.draw.line(surface, colour, pos + (0, 4), pos + (4, 4))
 
-def draw_2_mini(surface, pos, colour=green):
+
+def draw_2_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small digit '2'
+    Draws a small digit '2'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (0, 0),
@@ -865,9 +1506,19 @@ def draw_2_mini(surface, pos, colour=green):
                        pos + (0, 4),
                        pos + (4, 4)))
 
-def draw_3_mini(surface, pos, colour=green):
+
+def draw_3_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small digit '3'
+    Draws a small digit '3'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (0, 0),
@@ -879,9 +1530,19 @@ def draw_3_mini(surface, pos, colour=green):
                        pos + (0, 4)))
     pygame.draw.line(surface, colour, pos + (0, 2), pos + (2, 2))
 
-def draw_4_mini(surface, pos, colour=green):
+
+def draw_4_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small digit '4'
+    Draws a small digit '4'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (0, 0),
@@ -891,9 +1552,19 @@ def draw_4_mini(surface, pos, colour=green):
                        pos + (3, 4)))
     pygame.draw.line(surface, colour, pos + (3, 0), pos + (3, 1))
 
-def draw_5_mini(surface, pos, colour=green):
+
+def draw_5_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small digit '5'
+    Draws a small digit '5'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (4, 0),
@@ -904,9 +1575,19 @@ def draw_5_mini(surface, pos, colour=green):
                        pos + (3, 4),
                        pos + (0, 4)))
 
-def draw_6_mini(surface, pos, colour=green):
+
+def draw_6_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small digit '6'
+    Draws a small digit '6'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (4, 0),
@@ -919,9 +1600,19 @@ def draw_6_mini(surface, pos, colour=green):
                        pos + (3, 2),
                        pos + (1, 2)))
 
-def draw_7_mini(surface, pos, colour=green):
+
+def draw_7_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small digit '7'
+    Draws a small digit '7'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (0, 0),
@@ -931,9 +1622,19 @@ def draw_7_mini(surface, pos, colour=green):
                        pos + (3, 3),
                        pos + (2, 4)))
 
-def draw_8_mini(surface, pos, colour=green):
+
+def draw_8_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small digit '8'
+    Draws a small digit '8'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (4, 1),
@@ -947,9 +1648,19 @@ def draw_8_mini(surface, pos, colour=green):
                        pos + (1, 4),
                        pos + (0, 3)))
 
-def draw_9_mini(surface, pos, colour=green):
+
+def draw_9_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small digit '9'
+    Draws a small digit '9'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (4, 1),
@@ -960,9 +1671,19 @@ def draw_9_mini(surface, pos, colour=green):
                        pos + (4, 2),
                        pos + (4, 4)))
 
-def draw_0_mini(surface, pos, colour=green):
+
+def draw_0_mini(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
-    Draws a small digit '0'
+    Draws a small digit '0'.
+    :param surface: pygame.Surface
+        The surface on which to draw.
+    :param pos: np.ndarray
+        The position of the character to draw.
+    :param colour: np.ndarray
+        The colour of the character to draw.
+    :return: None
     """
     pygame.draw.lines(surface, colour, False,
                       (pos + (3, 0),
@@ -976,12 +1697,18 @@ def draw_0_mini(surface, pos, colour=green):
                        pos + (3, 1),
                        pos + (1, 3)))
 
-def draw_nothing(surface, pos, colour=green):
+
+def draw_nothing(
+        surface: pygame.Surface, pos: np.ndarray, colour: np.ndarray = green
+) -> None:
     """
     Doesn't draw anything. Used for space bars.
     """
 
-char_to_func = {
+
+char_to_func: Dict[str, Callable[
+    [pygame.Surface, np.ndarray, np.ndarray], None
+]] = {
     'A': draw_a,
     'B': draw_b,
     'C': draw_c,
@@ -1021,7 +1748,9 @@ char_to_func = {
     ' ': draw_nothing,
     }
 
-char_to_mini_func = {
+char_to_mini_func: Dict[str, Callable[
+    [pygame.Surface, np.ndarray, np.ndarray], None
+]] = {
     'A': draw_a_mini,
     'B': draw_b_mini,
     'C': draw_c_mini,
@@ -1061,7 +1790,9 @@ char_to_mini_func = {
     ' ': draw_nothing,
     }
 
-event_to_char = {
+event_to_char: Dict[str, Callable[
+    [pygame.Surface, np.ndarray, np.ndarray], None
+]] = {
     pygame.K_a: 'A',
     pygame.K_b: 'B',
     pygame.K_c: 'C',

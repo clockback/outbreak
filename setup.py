@@ -28,10 +28,10 @@ def get_long_description():
 setup(
     name=package_name,
     version=get_version(),
-    author='tuxbert',
+    author='clockback',
     author_email='elliotpatonsimpson@gmail.com',
     description='Outbreak',
-    url='https://github.com/tuxbert/outbreak',
+    url='https://github.com/clockback/outbreak',
     long_description=get_long_description(),
     packages=[package_name, 'bin'],
     include_package_data=True,
