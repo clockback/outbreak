@@ -52,7 +52,6 @@ class HighScores:
     """
     Reads and edits the high score file.
     """
-
     def __init__(self) -> None:
         """
         If the highscores.txt file is missing, the file is written.
@@ -136,7 +135,6 @@ class Entity:
     """
     Base class for characters, eggs, and shockwaves.
     """
-
     def __init__(self, pos: np.ndarray) -> None:
         """
         Stores the position of the entity.
@@ -144,14 +142,13 @@ class Entity:
             The x, y position of the entity on the screen.
         :return: None
         """
-        self.pos = pos
+        self.pos = np.array(pos)
 
 
 class Character(Entity):
     """
     A character which runs about on screen.
     """
-
     def __init__(
             self, char_id: str, pos: Union[Tuple[int, int], np.ndarray]
     ) -> None:
@@ -442,10 +439,12 @@ class Character(Entity):
                 if MAIN.caught:
                     char.target = char.on_death_target()
 
-        if (abs(MAIN.x - self.x) < infect_radius and
+        if (
+                abs(MAIN.x - self.x) < infect_radius and
                 abs(MAIN.y - self.y) < infect_radius and
                 not MAIN.caught and
-                MAIN.flash_i is None):
+                MAIN.flash_i is None
+        ):
             for shockwave in shockwaves:
                 if sum(MAIN.pos - shockwave.pos) < shockwave.radius:
                     return
@@ -463,7 +462,6 @@ class MainCharacter(Character):
     """
     The main character who the user controls.
     """
-
     def __init__(self, pos: Union[Tuple[int, int], np.ndarray]) -> None:
         super().__init__(char_id='Main', pos=pos)
         self.flash_i: Union[None, int] = None
@@ -517,7 +515,6 @@ class Shockwave(Entity):
     """
     A shockwave is visibly emitted from an egg.
     """
-
     def __init__(self, pos: Union[Tuple[int, int], np.ndarray]) -> None:
         """
         Stores the shockwave details.
@@ -557,8 +554,9 @@ class Shockwave(Entity):
             if (
                     char.id == 'Infected'
                     and char.distance(self) < self.radius
-                    and len(list(filter(lambda x: x.id == 'Infected',
-                                        characters))) > 1
+                    and len(list(filter(
+                        lambda x: x.id == 'Infected', characters
+                    ))) > 1
             ):
                 char.id = 'Disinfected'
                 char.new_target()
@@ -702,49 +700,67 @@ def display_objects() -> None:
     PSEUDO_SCREEN.fill(colours['black'])
 
     # Draw a border
-    pygame.draw.lines(PSEUDO_SCREEN, colours['white'], True,
-                      (DISP,
-                       DISP + (BOUNDARY_X - 1, 0),
-                       DISP + (BOUNDARY_X - 1, BOUNDARY_Y - 1),
-                       DISP + (0, BOUNDARY_Y - 1)))
+    pygame.draw.lines(
+        PSEUDO_SCREEN, colours['white'], True, (
+            DISP,
+            DISP + (BOUNDARY_X - 1, 0),
+            DISP + (BOUNDARY_X - 1, BOUNDARY_Y - 1),
+            DISP + (0, BOUNDARY_Y - 1)
+        )
+    )
 
     # Displays the eggs
     for egg in eggs:
         size = 2 if egg.age > 100 else 1
-        pygame.draw.rect(PSEUDO_SCREEN, egg.colour,
-                         (DISP + egg.pos, size * np.array((1, 1))))
+        pygame.draw.rect(
+            PSEUDO_SCREEN, egg.colour, (
+                DISP + egg.pos, size * np.array((1, 1))
+            )
+        )
 
     # Displays the characters on the screen
     for char in characters:
         if char == MAIN and not MAIN.visible():
             continue
-        pygame.draw.rect(PSEUDO_SCREEN, char.colour,
-                         (DISP + char.pos, np.array((2, 2))))
+        pygame.draw.rect(
+            PSEUDO_SCREEN, char.colour, (
+                DISP + char.pos, np.array((2, 2))
+            )
+        )
         if char.sprite == 1:
-            PSEUDO_SCREEN.set_at(DISP + char.pos + np.array((0, -1)),
-                                 char.colour)
-            PSEUDO_SCREEN.set_at(DISP + char.pos + np.array((-1, 0)),
-                                 char.colour)
-            PSEUDO_SCREEN.set_at(DISP + char.pos + np.array((1, 2)),
-                                 char.colour)
-            PSEUDO_SCREEN.set_at(DISP + char.pos + np.array((2, 1)),
-                                 char.colour)
+            PSEUDO_SCREEN.set_at(
+                DISP + char.pos + np.array((0, -1)), char.colour
+            )
+            PSEUDO_SCREEN.set_at(
+                DISP + char.pos + np.array((-1, 0)), char.colour
+            )
+            PSEUDO_SCREEN.set_at(
+                DISP + char.pos + np.array((1, 2)), char.colour
+            )
+            PSEUDO_SCREEN.set_at(
+                DISP + char.pos + np.array((2, 1)), char.colour
+            )
         elif char.sprite == 3:
-            PSEUDO_SCREEN.set_at(DISP + char.pos + np.array((1, -1)),
-                                 char.colour)
-            PSEUDO_SCREEN.set_at(DISP + char.pos + np.array((-1, 1)),
-                                 char.colour)
-            PSEUDO_SCREEN.set_at(DISP + char.pos + np.array((0, 2)),
-                                 char.colour)
-            PSEUDO_SCREEN.set_at(DISP + char.pos + np.array((2, 0)),
-                                 char.colour)
+            PSEUDO_SCREEN.set_at(
+                DISP + char.pos + np.array((1, -1)), char.colour
+            )
+            PSEUDO_SCREEN.set_at(
+                DISP + char.pos + np.array((-1, 1)), char.colour
+            )
+            PSEUDO_SCREEN.set_at(
+                DISP + char.pos + np.array((0, 2)), char.colour
+            )
+            PSEUDO_SCREEN.set_at(
+                DISP + char.pos + np.array((2, 0)), char.colour
+            )
 
     for shockwave in shockwaves:
         shockwave.draw()
 
     # Draws the score at the top right
-    write_right_align(str(high_scores.calculate_score(time_passed[0])), y=1,
-                      size='small')
+    write_right_align(
+        str(high_scores.calculate_score(time_passed[0])), y=1, size='small'
+    )
 
     # Draws hearts representing lives
     for heart_i in range(MAIN.lives):
@@ -862,13 +878,11 @@ def display_highscores() -> None:
             if len(high_scores.insert_user) == 4:
                 write_left_align('ENTER', y=y, x=46)
             else:
-                pygame.draw.line(PSEUDO_SCREEN, colours['green'],
-                                 np.array((len(
-                                     high_scores.insert_user) * 10 + 1,
-                                           y + 8)),
-                                 np.array((len(
-                                     high_scores.insert_user) * 10 + 8,
-                                           y + 8)))
+                pygame.draw.line(
+                    PSEUDO_SCREEN, colours['green'],
+                    np.array((len(high_scores.insert_user) * 10 + 1, y + 8)),
+                    np.array((len(high_scores.insert_user) * 10 + 8, y + 8))
+                )
             y += 10
             if i == 8:
                 break
@@ -939,10 +953,12 @@ def enter_name() -> bool:
     """
     if (high_scores.insert_user is not None and
             len(high_scores.insert_user) == 4):
-        high_scores.users.insert(high_scores.index,
-                                 high_scores.insert_user)
-        high_scores.points.insert(high_scores.index,
-                                  high_scores.insert_points)
+        high_scores.users.insert(
+            high_scores.index, high_scores.insert_user
+        )
+        high_scores.points.insert(
+            high_scores.index, high_scores.insert_points
+        )
         high_scores.insert_user = None
         high_scores.insert_points = None
         high_scores.index = -1
@@ -1011,20 +1027,28 @@ def handle_key_down() -> None:
             high_scores.update_scores()
             characters.remove(MAIN)
             break
-        elif (event.type == pygame.KEYDOWN and
-              event.key in letters.event_to_char):
+        elif (
+                event.type == pygame.KEYDOWN and
+                event.key in letters.event_to_char
+        ):
             type_char(event)
-        elif (event.type == pygame.KEYDOWN and
-              event.key == pygame.K_BACKSPACE):
+        elif (
+                event.type == pygame.KEYDOWN and
+                event.key == pygame.K_BACKSPACE
+        ):
             delete_char()
-        elif (event.type == pygame.KEYDOWN and
-              event.key == pygame.K_RETURN):
+        elif (
+                event.type == pygame.KEYDOWN and
+                event.key == pygame.K_RETURN
+        ):
             if enter_name():
                 continue
 
-        if (event.type == pygame.KEYDOWN and
+        if (
+                event.type == pygame.KEYDOWN and
                 event.key != pygame.K_LALT and
-                event.key != pygame.K_RALT):
+                event.key != pygame.K_RALT
+        ):
             if time_passed[1] >= 100 and high_scores.insert_user is None:
                 new_game()
                 SS.on_start_screen = True
@@ -1096,15 +1120,20 @@ class StartScreen:
         PSEUDO_SCREEN.blit(self.start_img, DISP)
 
         if self.flash_i > 25:
-            write_centre_align('PRESS ANY KEY', y=DISP[1] + 70, size='small',
-                               colour=colours['white'])
-            write_centre_align('TO START', y=DISP[1] + 76, size='small',
-                               colour=colours['white'])
+            write_centre_align(
+                'PRESS ANY KEY', y=DISP[1] + 70, size='small',
+                colour=colours['white']
+            )
+            write_centre_align(
+                'TO START', y=DISP[1] + 76, size='small',
+                colour=colours['white']
+            )
             if self.flash_i > 50:
                 self.flash_i = 0
 
-        SCREEN.blit(pygame.transform.scale(PSEUDO_SCREEN, RESOLUTION * 8),
-                    (0, 0))
+        SCREEN.blit(
+            pygame.transform.scale(PSEUDO_SCREEN, RESOLUTION * 8), (0, 0)
+        )
         pygame.display.flip()
 
         CLOCK.tick(25)
